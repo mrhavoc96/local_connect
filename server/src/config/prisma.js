@@ -1,8 +1,6 @@
-// import pkg from "pg";
-// const { Pool } = pkg;
 
-// const pool = new Pool({
-//   connectionString: process.env.DATABASE_URL
-// });
+import { PrismaClient } from "../generated/prisma/index.js";
 
-// export default pool;
+const prisma = new PrismaClient();
+
+export default prisma
