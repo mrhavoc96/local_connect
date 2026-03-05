@@ -1,1 +1,8 @@
-server/src/config/.env.example
+# server/src/config/.env.example
+.env
+
+node_modules
+# Keep environment variables out of version control
+.env
+
+/src/generated/prisma
