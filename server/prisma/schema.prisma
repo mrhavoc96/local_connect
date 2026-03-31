@@ -7,240 +7,194 @@ datasource db {
   provider = "postgresql"
 }
 
-model accounts {
-  account_id    Int      @id @default(autoincrement())
-  name          String   @db.VarChar(100)
-  email         String   @unique @db.VarChar(100)
-  phone         String?  @db.VarChar(20)
-  password_hash String
-  is_active     Boolean  @default(true)
-  created_at    DateTime @default(now())
-
-  account_roles   account_roles[]
-  user_addresses  user_addresses[]
-  seller_profiles seller_profiles?
-  reviews         reviews[]
-  transactions    transactions[]
-  notifications   notifications[]
-  wishlist_items  wishlist_items[]
-}
-
 model roles {
-  role_id   Int    @id @default(autoincrement())
-  role_name String @unique @db.VarChar(30)
-
-  account_roles account_roles[]
-}
-
-model account_roles {
-  account_id Int
-  role_id    Int
-
-  accounts accounts @relation(fields: [account_id], references: [account_id], onDelete: Cascade)
-  roles    roles    @relation(fields: [role_id], references: [role_id], onDelete: Cascade)
-
-  @@id([account_id, role_id])
+  role_id    Int          @id @default(autoincrement())
+  role_name  String       @unique @db.VarChar(30)
+  user_roles user_roles[]
 }
 
 model user_addresses {
   address_id   Int      @id @default(autoincrement())
-  account_id   Int
+  user_id      Int
   address_text String
   latitude     Decimal? @db.Decimal(9, 6)
   longitude    Decimal? @db.Decimal(9, 6)
   city         String?  @db.VarChar(50)
   pincode      String?  @db.VarChar(10)
-
-  accounts accounts @relation(fields: [account_id], references: [account_id], onDelete: Cascade)
+  users        users    @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model products {
-  product_id  Int      @id @default(autoincrement())
-  brand       String?  @db.VarChar(50)
-  model_name  String?  @db.VarChar(100)
-  category    String?  @db.VarChar(50)
-  description String?
-  base_price  Decimal? @db.Decimal(10, 2)
-
-  product_specifications product_specifications[]
+  product_id             Int                      @id @default(autoincrement())
+  brand                  String?                  @db.VarChar(50)
+  model_name             String?                  @db.VarChar(100)
+  category               String?                  @db.VarChar(50)
+  description            String?
+  base_price             Decimal?                 @db.Decimal(10, 2)
+  external_market_prices external_market_prices[]
+  product_demand         product_demand[]
   product_images         product_images[]
+  product_specifications product_specifications[]
   seller_products        seller_products[]
   wishlist_items         wishlist_items[]
-  product_demand         product_demand[]
-  external_market_prices external_market_prices[]
 }
 
 model product_specifications {
-  spec_id    Int    @id @default(autoincrement())
-  product_id Int
-  spec_key   String @db.VarChar(50)
-  spec_value String @db.VarChar(100)
-
-  products products @relation(fields: [product_id], references: [product_id], onDelete: Cascade)
+  spec_id    Int       @id @default(autoincrement())
+  product_id Int?
+  spec_key   String?   @db.VarChar(50)
+  spec_value String?   @db.VarChar(100)
+  products   products? @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model product_images {
-  image_id   Int    @id @default(autoincrement())
-  product_id Int
-  image_url  String
-
-  products products @relation(fields: [product_id], references: [product_id], onDelete: Cascade)
+  image_id   Int       @id @default(autoincrement())
+  product_id Int?
+  image_url  String?
+  products   products? @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model seller_profiles {
-  seller_id   Int      @id @default(autoincrement())
-  account_id  Int      @unique
-  shop_name   String   @db.VarChar(100)
-  latitude    Decimal? @db.Decimal(9, 6)
-  longitude   Decimal? @db.Decimal(9, 6)
-  city        String?  @db.VarChar(50)
-  pincode     String?  @db.VarChar(10)
-  is_verified Boolean  @default(false)
-
-  accounts        accounts          @relation(fields: [account_id], references: [account_id], onDelete: Cascade)
+  seller_id       Int               @id @default(autoincrement())
+  user_id         Int               @unique
+  shop_name       String            @db.VarChar(100)
+  latitude        Decimal?          @db.Decimal(9, 6)
+  longitude       Decimal?          @db.Decimal(9, 6)
+  city            String?           @db.VarChar(50)
+  pincode         String?           @db.VarChar(10)
+  is_verified     Boolean?          @default(false)
   seller_images   seller_images[]
   seller_products seller_products[]
-  transactions    transactions[]
+  users           users             @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model seller_images {
-  image_id  Int    @id @default(autoincrement())
-  seller_id Int
-  image_url String
-
-  seller_profiles seller_profiles @relation(fields: [seller_id], references: [seller_id], onDelete: Cascade)
+  image_id        Int              @id @default(autoincrement())
+  seller_id       Int?
+  image_url       String
+  seller_profiles seller_profiles? @relation(fields: [seller_id], references: [seller_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model seller_products {
-  seller_product_id Int     @id @default(autoincrement())
-  seller_id         Int
-  product_id        Int
-  price             Decimal @db.Decimal(10, 2)
-  stock_quantity    Int     @default(0)
-  is_available      Boolean @default(true)
-
-  seller_profiles       seller_profiles         @relation(fields: [seller_id], references: [seller_id], onDelete: Cascade)
-  products              products                @relation(fields: [product_id], references: [product_id], onDelete: Cascade)
-  seller_product_offers seller_product_offers[]
+  seller_product_id     Int                     @id @default(autoincrement())
+  seller_id             Int?
+  product_id            Int?
+  price                 Decimal?                @db.Decimal(10, 2)
+  stock_quantity        Int?
+  is_available          Boolean?                @default(true)
   product_price_history product_price_history[]
-  transaction_items     transaction_items[]
+  seller_product_offers seller_product_offers[]
+  products              products?               @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction)
+  seller_profiles       seller_profiles?        @relation(fields: [seller_id], references: [seller_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model seller_product_offers {
-  offer_id          Int      @id @default(autoincrement())
-  seller_product_id Int
-  discount_type     String   @db.VarChar(10)
-  discount_value    Decimal  @db.Decimal(10, 2)
-  start_date        DateTime @db.Date
-  end_date          DateTime @db.Date
-
-  seller_products seller_products @relation(fields: [seller_product_id], references: [seller_product_id], onDelete: Cascade)
+  offer_id          Int              @id @default(autoincrement())
+  seller_product_id Int?
+  discount_type     String?          @db.VarChar(10)
+  discount_value    Decimal?         @db.Decimal(10, 2)
+  start_date        DateTime?        @db.Date
+  end_date          DateTime?        @db.Date
+  seller_products   seller_products? @relation(fields: [seller_product_id], references: [seller_product_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model wishlist_items {
-  account_id Int
+  user_id    Int
   product_id Int
-  created_at DateTime @default(now())
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  products   products  @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction)
+  users      users     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
 
-  accounts accounts @relation(fields: [account_id], references: [account_id], onDelete: Cascade)
-  products products @relation(fields: [product_id], references: [product_id], onDelete: Cascade)
-
-  @@id([account_id, product_id])
+  @@id([user_id, product_id])
 }
 
 model reviews {
-  review_id   Int      @id @default(autoincrement())
-  account_id  Int
-  rating      Int
-  review_text String?
-  created_at  DateTime @default(now())
-
-  accounts       accounts         @relation(fields: [account_id], references: [account_id], onDelete: Cascade)
+  review_id      Int              @id @default(autoincrement())
+  user_id        Int?
+  rating         Int?
+  review_text    String?
+  created_at     DateTime?        @default(now()) @db.Timestamp(6)
   review_media   review_media[]
-  review_targets review_targets[]
+  review_targets review_targets[]  @ignore
+  users          users?           @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model review_targets {
-  review_id   Int
-  target_type String @db.VarChar(10)
-  target_id   Int
+  review_id   Int?
+  target_type String?  @db.VarChar(10)
+  target_id   Int?
+  reviews     reviews? @relation(fields: [review_id], references: [review_id], onDelete: NoAction, onUpdate: NoAction)
 
-  reviews reviews @relation(fields: [review_id], references: [review_id], onDelete: Cascade)
-
-  @@id([review_id, target_type, target_id])
+  @@ignore
 }
 
 model review_media {
-  media_id   Int    @id @default(autoincrement())
-  review_id  Int
-  media_url  String
-  media_type String @db.VarChar(10)
-
-  reviews reviews @relation(fields: [review_id], references: [review_id], onDelete: Cascade)
-}
-
-model transactions {
-  transaction_id   Int      @id @default(autoincrement())
-  buyer_account_id Int
-  seller_id        Int
-  status           String   @db.VarChar(20)
-  purchase_type    String   @db.VarChar(10)
-  created_at       DateTime @default(now())
-
-  accounts          accounts            @relation(fields: [buyer_account_id], references: [account_id])
-  seller_profiles   seller_profiles     @relation(fields: [seller_id], references: [seller_id])
-  transaction_items transaction_items[]
-}
-
-model transaction_items {
-  transaction_item_id Int     @id @default(autoincrement())
-  transaction_id      Int
-  seller_product_id   Int
-  quantity            Int
-  price_at_purchase   Decimal @db.Decimal(10, 2)
-
-  transactions    transactions    @relation(fields: [transaction_id], references: [transaction_id], onDelete: Cascade)
-  seller_products seller_products @relation(fields: [seller_product_id], references: [seller_product_id])
+  media_id   Int      @id @default(autoincrement())
+  review_id  Int?
+  media_url  String?
+  media_type String?  @db.VarChar(10)
+  reviews    reviews? @relation(fields: [review_id], references: [review_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model notifications {
-  notification_id      Int      @id @default(autoincrement())
-  recipient_account_id Int
-  title                String   @db.VarChar(100)
-  message              String?
-  is_read              Boolean  @default(false)
-  created_at           DateTime @default(now())
-
-  accounts accounts @relation(fields: [recipient_account_id], references: [account_id], onDelete: Cascade)
+  notification_id   Int       @id @default(autoincrement())
+  recipient_user_id Int?
+  title             String?   @db.VarChar(100)
+  message           String?
+  is_read           Boolean?  @default(false)
+  created_at        DateTime? @default(now()) @db.Timestamp(6)
+  users             users?    @relation(fields: [recipient_user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model product_price_history {
-  history_id        Int      @id @default(autoincrement())
-  seller_product_id Int
-  price             Decimal  @db.Decimal(10, 2)
-  recorded_at       DateTime @default(now())
-
-  seller_products seller_products @relation(fields: [seller_product_id], references: [seller_product_id], onDelete: Cascade)
+  history_id        Int              @id @default(autoincrement())
+  seller_product_id Int?
+  price             Decimal?         @db.Decimal(10, 2)
+  recorded_at       DateTime?        @default(now()) @db.Timestamp(6)
+  seller_products   seller_products? @relation(fields: [seller_product_id], references: [seller_product_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model product_demand {
-  product_id        Int
-  city              String @db.VarChar(50)
-  views_count       Int    @default(0)
-  wishlist_count    Int    @default(0)
-  purchase_attempts Int    @default(0)
-
-  products products @relation(fields: [product_id], references: [product_id], onDelete: Cascade)
+  product_id     Int
+  city           String   @db.VarChar(50)
+  views_count    Int?     @default(0)
+  wishlist_count Int?     @default(0)
+  products       products @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([product_id, city])
 }
 
 model external_market_prices {
-  external_price_id Int      @id @default(autoincrement())
-  product_id        Int
-  platform_name     String   @db.VarChar(50)
-  price             Decimal  @db.Decimal(10, 2)
-  last_updated      DateTime @default(now())
+  external_price_id Int       @id @default(autoincrement())
+  product_id        Int?
+  platform_name     String?   @db.VarChar(50)
+  price             Decimal?  @db.Decimal(10, 2)
+  last_updated      DateTime? @db.Timestamp(6)
+  products          products? @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction)
+}
 
-  products products @relation(fields: [product_id], references: [product_id], onDelete: Cascade)
+model user_roles {
+  user_id Int
+  role_id Int
+  roles   roles @relation(fields: [role_id], references: [role_id], onDelete: NoAction, onUpdate: NoAction)
+  users   users @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([user_id, role_id])
+}
+
+model users {
+  user_id         Int              @id @default(autoincrement())
+  name            String           @db.VarChar(100)
+  email           String           @unique @db.VarChar(100)
+  phone           String?          @db.VarChar(20)
+  password_hash   String
+  is_active       Boolean?         @default(true)
+  created_at      DateTime?        @default(now()) @db.Timestamp(6)
+  notifications   notifications[]
+  reviews         reviews[]
+  seller_profiles seller_profiles?
+  user_addresses  user_addresses[]
+  user_roles      user_roles[]
+  wishlist_items  wishlist_items[]
 }

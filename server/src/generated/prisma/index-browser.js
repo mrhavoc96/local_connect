@@ -120,29 +120,14 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.AccountsScalarFieldEnum = {
-  account_id: 'account_id',
-  name: 'name',
-  email: 'email',
-  phone: 'phone',
-  password_hash: 'password_hash',
-  is_active: 'is_active',
-  created_at: 'created_at'
-};
-
 exports.Prisma.RolesScalarFieldEnum = {
   role_id: 'role_id',
   role_name: 'role_name'
 };
 
-exports.Prisma.Account_rolesScalarFieldEnum = {
-  account_id: 'account_id',
-  role_id: 'role_id'
-};
-
 exports.Prisma.User_addressesScalarFieldEnum = {
   address_id: 'address_id',
-  account_id: 'account_id',
+  user_id: 'user_id',
   address_text: 'address_text',
   latitude: 'latitude',
   longitude: 'longitude',
@@ -174,7 +159,7 @@ exports.Prisma.Product_imagesScalarFieldEnum = {
 
 exports.Prisma.Seller_profilesScalarFieldEnum = {
   seller_id: 'seller_id',
-  account_id: 'account_id',
+  user_id: 'user_id',
   shop_name: 'shop_name',
   latitude: 'latitude',
   longitude: 'longitude',
@@ -208,23 +193,17 @@ exports.Prisma.Seller_product_offersScalarFieldEnum = {
 };
 
 exports.Prisma.Wishlist_itemsScalarFieldEnum = {
-  account_id: 'account_id',
+  user_id: 'user_id',
   product_id: 'product_id',
   created_at: 'created_at'
 };
 
 exports.Prisma.ReviewsScalarFieldEnum = {
   review_id: 'review_id',
-  account_id: 'account_id',
+  user_id: 'user_id',
   rating: 'rating',
   review_text: 'review_text',
   created_at: 'created_at'
-};
-
-exports.Prisma.Review_targetsScalarFieldEnum = {
-  review_id: 'review_id',
-  target_type: 'target_type',
-  target_id: 'target_id'
 };
 
 exports.Prisma.Review_mediaScalarFieldEnum = {
@@ -234,26 +213,9 @@ exports.Prisma.Review_mediaScalarFieldEnum = {
   media_type: 'media_type'
 };
 
-exports.Prisma.TransactionsScalarFieldEnum = {
-  transaction_id: 'transaction_id',
-  buyer_account_id: 'buyer_account_id',
-  seller_id: 'seller_id',
-  status: 'status',
-  purchase_type: 'purchase_type',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Transaction_itemsScalarFieldEnum = {
-  transaction_item_id: 'transaction_item_id',
-  transaction_id: 'transaction_id',
-  seller_product_id: 'seller_product_id',
-  quantity: 'quantity',
-  price_at_purchase: 'price_at_purchase'
-};
-
 exports.Prisma.NotificationsScalarFieldEnum = {
   notification_id: 'notification_id',
-  recipient_account_id: 'recipient_account_id',
+  recipient_user_id: 'recipient_user_id',
   title: 'title',
   message: 'message',
   is_read: 'is_read',
@@ -271,8 +233,7 @@ exports.Prisma.Product_demandScalarFieldEnum = {
   product_id: 'product_id',
   city: 'city',
   views_count: 'views_count',
-  wishlist_count: 'wishlist_count',
-  purchase_attempts: 'purchase_attempts'
+  wishlist_count: 'wishlist_count'
 };
 
 exports.Prisma.External_market_pricesScalarFieldEnum = {
@@ -281,6 +242,21 @@ exports.Prisma.External_market_pricesScalarFieldEnum = {
   platform_name: 'platform_name',
   price: 'price',
   last_updated: 'last_updated'
+};
+
+exports.Prisma.User_rolesScalarFieldEnum = {
+  user_id: 'user_id',
+  role_id: 'role_id'
+};
+
+exports.Prisma.UsersScalarFieldEnum = {
+  user_id: 'user_id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  password_hash: 'password_hash',
+  is_active: 'is_active',
+  created_at: 'created_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -300,9 +276,7 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  accounts: 'accounts',
   roles: 'roles',
-  account_roles: 'account_roles',
   user_addresses: 'user_addresses',
   products: 'products',
   product_specifications: 'product_specifications',
@@ -313,14 +287,13 @@ exports.Prisma.ModelName = {
   seller_product_offers: 'seller_product_offers',
   wishlist_items: 'wishlist_items',
   reviews: 'reviews',
-  review_targets: 'review_targets',
   review_media: 'review_media',
-  transactions: 'transactions',
-  transaction_items: 'transaction_items',
   notifications: 'notifications',
   product_price_history: 'product_price_history',
   product_demand: 'product_demand',
-  external_market_prices: 'external_market_prices'
+  external_market_prices: 'external_market_prices',
+  user_roles: 'user_roles',
+  users: 'users'
 };
 
 /**
