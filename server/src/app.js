@@ -1,30 +1,60 @@
+// src/app.js
+// =============================================================================
+// Express application setup.
+// This file creates and configures the Express app.
+// It does NOT start the server — that's index.js's job.
+// Keeping them separate makes the app easier to test.
+// =============================================================================
+
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+
+import { errorHandler } from "./middlewares/error.middleware.js";
+import authRoutes from "./modules/auth/auth.routes.js";
+import landingRoutes from "./modules/landing/landing.routes.js";
+
 const app = express();
 
-//Basic express  configurations
-app.use(express.json({limit: "16kb"}))
-app.use(express.urlencoded({extended:true, limit: "16kb"}))
-app.use(express.static("public"))
+// =============================================================================
+// GLOBAL MIDDLEWARE
+// =============================================================================
+
+// CORS — configure allowed origins as needed
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    credentials: true, // Required for cookies (refresh token) to work cross-origin
+  })
+);
+
+// Parse incoming JSON request bodies
+app.use(express.json({ limit: "16kb" }));
+
+// Parse URL-encoded bodies (form submissions)
+app.use(express.urlencoded({ extended: true, limit: "16kb" }));
+
+// Parse cookies — required to read the refreshToken httpOnly cookie
+app.use(cookieParser());
+
+// =============================================================================
+// ROUTES
+// =============================================================================
+app.use("/api/auth", authRoutes);
+app.use("/api/landing", landingRoutes)
 
 
-// cors configurations
-app.use(cors({
-  origin: process.env.CORS_ORIGIN?.split(",") || "http://localhost:5173",
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type","Authorization"],
-}));
 
-// Import the routes
-// import healthCheckRouter from "./modules/healthcheck/healthcheck.router.js";
-
-// Assigning the new endpoint to server on
-// app.use("api/v1/healthcheck", healthCheckRouter);
-
-app.get("/", (req, res) => {
-  res.send("API running");
+// Health check — useful for deployment and uptime monitoring
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-export default app;
+// =============================================================================
+// GLOBAL ERROR HANDLER
+// Must be registered AFTER all routes — Express processes middleware in order.
+// =============================================================================
 
+app.use(errorHandler);
+
+export default app;
