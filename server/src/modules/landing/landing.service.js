@@ -21,10 +21,11 @@ const getLandingPageSuggestions = async () => {
   // We parse them here so the controller sends a proper JS array to the client,
   // not a stringified one like "[\"url1\",\"url2\"]".
   const products = rows.map((product) => ({
-    ...product,
-    images: typeof product.images === "string"
-      ? JSON.parse(product.images)
-      : product.images ?? [],
+  ...product,
+  popularity: Number(product.popularity),
+  images: typeof product.images === "string"
+    ? JSON.parse(product.images)
+    : product.images ?? [],
   }));
 
   return products;

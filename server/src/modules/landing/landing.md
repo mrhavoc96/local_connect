@@ -103,6 +103,17 @@ with `popularity: 0` and ordering will be arbitrary.
 To seed some test demand data, run this in pgAdmin/DBeaver:
 
 ```sql
+---You need to insert products first before inserting demand or images. Run this:
+
+INSERT INTO products (brand, model_name, category, description, base_price)
+VALUES
+  ('Samsung',  'Galaxy S24 Ultra',    'Smartphone', 'Flagship Android smartphone with S-Pen support.',         109999.00),
+  ('Apple',    'MacBook Air M2',      'Laptop',     '13-inch laptop powered by Apple M2 chip.',                99999.00),
+  ('Sony',     'WH-1000XM5',          'Headphones', 'Industry-leading noise cancelling wireless headphones.',  29999.00),
+  ('LG',       '55 inch OLED C3',     'Television', '55-inch OLED TV with α9 AI Processor.',                  139999.00);
+```
+
+```sql
 -- Add some test demand entries (adjust product_id values to ones that exist in your DB)
 INSERT INTO product_demand (product_id, city, views_count, wishlist_count)
 VALUES
