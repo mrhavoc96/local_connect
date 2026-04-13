@@ -122,26 +122,132 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.RolesScalarFieldEnum = {
-  role_id: 'role_id',
-  role_name: 'role_name'
-};
-
-exports.Prisma.UsersScalarFieldEnum = {
-  user_id: 'user_id',
-  name: 'name',
-  email: 'email',
-  phone: 'phone',
-  password_hash: 'password_hash',
-  is_active: 'is_active',
-  created_at: 'created_at'
-};
-
 exports.Prisma.Email_verificationsScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
   token_hash: 'token_hash',
   expires_at: 'expires_at'
+};
+
+exports.Prisma.External_market_pricesScalarFieldEnum = {
+  external_price_id: 'external_price_id',
+  product_id: 'product_id',
+  platform_name: 'platform_name',
+  price: 'price',
+  last_updated: 'last_updated'
+};
+
+exports.Prisma.NotificationsScalarFieldEnum = {
+  notification_id: 'notification_id',
+  recipient_user_id: 'recipient_user_id',
+  title: 'title',
+  message: 'message',
+  is_read: 'is_read',
+  created_at: 'created_at'
+};
+
+exports.Prisma.Product_demandScalarFieldEnum = {
+  product_id: 'product_id',
+  city: 'city',
+  views_count: 'views_count',
+  wishlist_count: 'wishlist_count'
+};
+
+exports.Prisma.Product_imagesScalarFieldEnum = {
+  image_id: 'image_id',
+  product_id: 'product_id',
+  image_url: 'image_url'
+};
+
+exports.Prisma.Product_price_historyScalarFieldEnum = {
+  history_id: 'history_id',
+  seller_product_id: 'seller_product_id',
+  price: 'price',
+  recorded_at: 'recorded_at'
+};
+
+exports.Prisma.Product_specificationsScalarFieldEnum = {
+  spec_id: 'spec_id',
+  product_id: 'product_id',
+  spec_key: 'spec_key',
+  spec_value: 'spec_value'
+};
+
+exports.Prisma.ProductsScalarFieldEnum = {
+  product_id: 'product_id',
+  brand: 'brand',
+  model_name: 'model_name',
+  category: 'category',
+  description: 'description',
+  base_price: 'base_price',
+  average_rating: 'average_rating',
+  review_count: 'review_count'
+};
+
+exports.Prisma.Review_mediaScalarFieldEnum = {
+  media_id: 'media_id',
+  review_id: 'review_id',
+  media_url: 'media_url',
+  media_type: 'media_type'
+};
+
+exports.Prisma.Review_targetsScalarFieldEnum = {
+  review_id: 'review_id',
+  target_type: 'target_type',
+  target_id: 'target_id',
+  target_id_pk: 'target_id_pk'
+};
+
+exports.Prisma.ReviewsScalarFieldEnum = {
+  review_id: 'review_id',
+  user_id: 'user_id',
+  rating: 'rating',
+  review_text: 'review_text',
+  created_at: 'created_at'
+};
+
+exports.Prisma.RolesScalarFieldEnum = {
+  role_id: 'role_id',
+  role_name: 'role_name'
+};
+
+exports.Prisma.Seller_imagesScalarFieldEnum = {
+  image_id: 'image_id',
+  seller_id: 'seller_id',
+  image_url: 'image_url'
+};
+
+exports.Prisma.Seller_product_offersScalarFieldEnum = {
+  offer_id: 'offer_id',
+  seller_product_id: 'seller_product_id',
+  discount_type: 'discount_type',
+  discount_value: 'discount_value',
+  start_date: 'start_date',
+  end_date: 'end_date'
+};
+
+exports.Prisma.Seller_productsScalarFieldEnum = {
+  seller_product_id: 'seller_product_id',
+  seller_id: 'seller_id',
+  product_id: 'product_id',
+  price: 'price',
+  stock_quantity: 'stock_quantity',
+  is_available: 'is_available',
+  warranty_months: 'warranty_months'
+};
+
+exports.Prisma.Seller_profilesScalarFieldEnum = {
+  seller_id: 'seller_id',
+  user_id: 'user_id',
+  shop_name: 'shop_name',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  city: 'city',
+  pincode: 'pincode',
+  is_verified: 'is_verified',
+  google_place_id: 'google_place_id',
+  average_rating: 'average_rating',
+  review_count: 'review_count'
 };
 
 exports.Prisma.User_addressesScalarFieldEnum = {
@@ -154,118 +260,25 @@ exports.Prisma.User_addressesScalarFieldEnum = {
   pincode: 'pincode'
 };
 
-exports.Prisma.ProductsScalarFieldEnum = {
-  product_id: 'product_id',
-  brand: 'brand',
-  model_name: 'model_name',
-  category: 'category',
-  description: 'description',
-  base_price: 'base_price'
-};
-
-exports.Prisma.Product_specificationsScalarFieldEnum = {
-  spec_id: 'spec_id',
-  product_id: 'product_id',
-  spec_key: 'spec_key',
-  spec_value: 'spec_value'
-};
-
-exports.Prisma.Product_imagesScalarFieldEnum = {
-  image_id: 'image_id',
-  product_id: 'product_id',
-  image_url: 'image_url'
-};
-
-exports.Prisma.Seller_profilesScalarFieldEnum = {
-  seller_id: 'seller_id',
+exports.Prisma.User_rolesScalarFieldEnum = {
   user_id: 'user_id',
-  shop_name: 'shop_name',
-  latitude: 'latitude',
-  longitude: 'longitude',
-  city: 'city',
-  pincode: 'pincode',
-  is_verified: 'is_verified'
+  role_id: 'role_id'
 };
 
-exports.Prisma.Seller_imagesScalarFieldEnum = {
-  image_id: 'image_id',
-  seller_id: 'seller_id',
-  image_url: 'image_url'
-};
-
-exports.Prisma.Seller_productsScalarFieldEnum = {
-  seller_product_id: 'seller_product_id',
-  seller_id: 'seller_id',
-  product_id: 'product_id',
-  price: 'price',
-  stock_quantity: 'stock_quantity',
-  is_available: 'is_available'
-};
-
-exports.Prisma.Seller_product_offersScalarFieldEnum = {
-  offer_id: 'offer_id',
-  seller_product_id: 'seller_product_id',
-  discount_type: 'discount_type',
-  discount_value: 'discount_value',
-  start_date: 'start_date',
-  end_date: 'end_date'
+exports.Prisma.UsersScalarFieldEnum = {
+  user_id: 'user_id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  password_hash: 'password_hash',
+  is_active: 'is_active',
+  created_at: 'created_at'
 };
 
 exports.Prisma.Wishlist_itemsScalarFieldEnum = {
   user_id: 'user_id',
   product_id: 'product_id',
   created_at: 'created_at'
-};
-
-exports.Prisma.ReviewsScalarFieldEnum = {
-  review_id: 'review_id',
-  user_id: 'user_id',
-  rating: 'rating',
-  review_text: 'review_text',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Review_mediaScalarFieldEnum = {
-  media_id: 'media_id',
-  review_id: 'review_id',
-  media_url: 'media_url',
-  media_type: 'media_type'
-};
-
-exports.Prisma.NotificationsScalarFieldEnum = {
-  notification_id: 'notification_id',
-  recipient_user_id: 'recipient_user_id',
-  title: 'title',
-  message: 'message',
-  is_read: 'is_read',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Product_price_historyScalarFieldEnum = {
-  history_id: 'history_id',
-  seller_product_id: 'seller_product_id',
-  price: 'price',
-  recorded_at: 'recorded_at'
-};
-
-exports.Prisma.Product_demandScalarFieldEnum = {
-  product_id: 'product_id',
-  city: 'city',
-  views_count: 'views_count',
-  wishlist_count: 'wishlist_count'
-};
-
-exports.Prisma.External_market_pricesScalarFieldEnum = {
-  external_price_id: 'external_price_id',
-  product_id: 'product_id',
-  platform_name: 'platform_name',
-  price: 'price',
-  last_updated: 'last_updated'
-};
-
-exports.Prisma.User_rolesScalarFieldEnum = {
-  user_id: 'user_id',
-  role_id: 'role_id'
 };
 
 exports.Prisma.SortOrder = {
@@ -285,25 +298,26 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  roles: 'roles',
-  users: 'users',
   email_verifications: 'email_verifications',
-  user_addresses: 'user_addresses',
-  products: 'products',
-  product_specifications: 'product_specifications',
-  product_images: 'product_images',
-  seller_profiles: 'seller_profiles',
-  seller_images: 'seller_images',
-  seller_products: 'seller_products',
-  seller_product_offers: 'seller_product_offers',
-  wishlist_items: 'wishlist_items',
-  reviews: 'reviews',
-  review_media: 'review_media',
-  notifications: 'notifications',
-  product_price_history: 'product_price_history',
-  product_demand: 'product_demand',
   external_market_prices: 'external_market_prices',
-  user_roles: 'user_roles'
+  notifications: 'notifications',
+  product_demand: 'product_demand',
+  product_images: 'product_images',
+  product_price_history: 'product_price_history',
+  product_specifications: 'product_specifications',
+  products: 'products',
+  review_media: 'review_media',
+  review_targets: 'review_targets',
+  reviews: 'reviews',
+  roles: 'roles',
+  seller_images: 'seller_images',
+  seller_product_offers: 'seller_product_offers',
+  seller_products: 'seller_products',
+  seller_profiles: 'seller_profiles',
+  user_addresses: 'user_addresses',
+  user_roles: 'user_roles',
+  users: 'users',
+  wishlist_items: 'wishlist_items'
 };
 
 /**

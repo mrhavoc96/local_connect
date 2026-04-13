@@ -13,6 +13,8 @@ import cookieParser from "cookie-parser";
 import { errorHandler } from "./middlewares/error.middleware.js";
 import authRoutes from "./modules/auth/auth.routes.js";
 import landingRoutes from "./modules/landing/landing.routes.js";
+import searchRoutes from "./modules/search/search.routes.js"
+
 
 const app = express();
 
@@ -42,7 +44,7 @@ app.use(cookieParser());
 // =============================================================================
 app.use("/api/auth", authRoutes);
 app.use("/api/landing", landingRoutes)
-
+app.use("/api/search",  searchRoutes);
 
 
 // Health check — useful for deployment and uptime monitoring
