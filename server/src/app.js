@@ -14,6 +14,7 @@ import { errorHandler } from "./middlewares/error.middleware.js";
 import authRoutes from "./modules/auth/auth.routes.js";
 import landingRoutes from "./modules/landing/landing.routes.js";
 import searchRoutes from "./modules/search/search.routes.js"
+import productRoutes from "./modules/product/product.routes.js";
 
 
 const app = express();
@@ -45,6 +46,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/landing", landingRoutes)
 app.use("/api/search",  searchRoutes);
+app.use("/api/products", productRoutes);
 
 
 // Health check — useful for deployment and uptime monitoring
