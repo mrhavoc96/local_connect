@@ -16,6 +16,7 @@ import landingRoutes from "./modules/landing/landing.routes.js";
 import searchRoutes from "./modules/search/search.routes.js"
 import productRoutes from "./modules/product/product.routes.js";
 
+import sellerAuthRoutes from "./modules/seller-auth/seller-auth.routes.js";
 
 const app = express();
 
@@ -48,6 +49,9 @@ app.use("/api/landing", landingRoutes)
 app.use("/api/search",  searchRoutes);
 app.use("/api/products", productRoutes);
 
+
+// Seller portal
+app.use("/api/seller/auth", sellerAuthRoutes);
 
 // Health check — useful for deployment and uptime monitoring
 app.get("/api/health", (req, res) => {
