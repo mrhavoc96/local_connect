@@ -133,6 +133,7 @@ model seller_product_offers {
   discount_value    Decimal?         @db.Decimal(10, 2)
   start_date        DateTime?        @db.Date
   end_date          DateTime?        @db.Date
+  is_auto_generated Boolean?         @default(false)
   seller_products   seller_products? @relation(fields: [seller_product_id], references: [seller_product_id], onDelete: NoAction, onUpdate: NoAction)
 }
 

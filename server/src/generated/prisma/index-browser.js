@@ -223,7 +223,8 @@ exports.Prisma.Seller_product_offersScalarFieldEnum = {
   discount_type: 'discount_type',
   discount_value: 'discount_value',
   start_date: 'start_date',
-  end_date: 'end_date'
+  end_date: 'end_date',
+  is_auto_generated: 'is_auto_generated'
 };
 
 exports.Prisma.Seller_productsScalarFieldEnum = {
