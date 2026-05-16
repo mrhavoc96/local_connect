@@ -15675,6 +15675,7 @@ export namespace Prisma {
     discount_value: Decimal | null
     start_date: Date | null
     end_date: Date | null
+    is_auto_generated: boolean | null
   }
 
   export type Seller_product_offersMaxAggregateOutputType = {
@@ -15684,6 +15685,7 @@ export namespace Prisma {
     discount_value: Decimal | null
     start_date: Date | null
     end_date: Date | null
+    is_auto_generated: boolean | null
   }
 
   export type Seller_product_offersCountAggregateOutputType = {
@@ -15693,6 +15695,7 @@ export namespace Prisma {
     discount_value: number
     start_date: number
     end_date: number
+    is_auto_generated: number
     _all: number
   }
 
@@ -15716,6 +15719,7 @@ export namespace Prisma {
     discount_value?: true
     start_date?: true
     end_date?: true
+    is_auto_generated?: true
   }
 
   export type Seller_product_offersMaxAggregateInputType = {
@@ -15725,6 +15729,7 @@ export namespace Prisma {
     discount_value?: true
     start_date?: true
     end_date?: true
+    is_auto_generated?: true
   }
 
   export type Seller_product_offersCountAggregateInputType = {
@@ -15734,6 +15739,7 @@ export namespace Prisma {
     discount_value?: true
     start_date?: true
     end_date?: true
+    is_auto_generated?: true
     _all?: true
   }
 
@@ -15830,6 +15836,7 @@ export namespace Prisma {
     discount_value: Decimal | null
     start_date: Date | null
     end_date: Date | null
+    is_auto_generated: boolean | null
     _count: Seller_product_offersCountAggregateOutputType | null
     _avg: Seller_product_offersAvgAggregateOutputType | null
     _sum: Seller_product_offersSumAggregateOutputType | null
@@ -15858,6 +15865,7 @@ export namespace Prisma {
     discount_value?: boolean
     start_date?: boolean
     end_date?: boolean
+    is_auto_generated?: boolean
     seller_products?: boolean | seller_product_offers$seller_productsArgs<ExtArgs>
   }, ExtArgs["result"]["seller_product_offers"]>
 
@@ -15868,6 +15876,7 @@ export namespace Prisma {
     discount_value?: boolean
     start_date?: boolean
     end_date?: boolean
+    is_auto_generated?: boolean
     seller_products?: boolean | seller_product_offers$seller_productsArgs<ExtArgs>
   }, ExtArgs["result"]["seller_product_offers"]>
 
@@ -15878,6 +15887,7 @@ export namespace Prisma {
     discount_value?: boolean
     start_date?: boolean
     end_date?: boolean
+    is_auto_generated?: boolean
   }
 
   export type seller_product_offersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15899,6 +15909,7 @@ export namespace Prisma {
       discount_value: Prisma.Decimal | null
       start_date: Date | null
       end_date: Date | null
+      is_auto_generated: boolean | null
     }, ExtArgs["result"]["seller_product_offers"]>
     composites: {}
   }
@@ -16299,6 +16310,7 @@ export namespace Prisma {
     readonly discount_value: FieldRef<"seller_product_offers", 'Decimal'>
     readonly start_date: FieldRef<"seller_product_offers", 'DateTime'>
     readonly end_date: FieldRef<"seller_product_offers", 'DateTime'>
+    readonly is_auto_generated: FieldRef<"seller_product_offers", 'Boolean'>
   }
     
 
@@ -23043,7 +23055,8 @@ export namespace Prisma {
     discount_type: 'discount_type',
     discount_value: 'discount_value',
     start_date: 'start_date',
-    end_date: 'end_date'
+    end_date: 'end_date',
+    is_auto_generated: 'is_auto_generated'
   };
 
   export type Seller_product_offersScalarFieldEnum = (typeof Seller_product_offersScalarFieldEnum)[keyof typeof Seller_product_offersScalarFieldEnum]
@@ -23959,6 +23972,7 @@ export namespace Prisma {
     discount_value?: DecimalNullableFilter<"seller_product_offers"> | Decimal | DecimalJsLike | number | string | null
     start_date?: DateTimeNullableFilter<"seller_product_offers"> | Date | string | null
     end_date?: DateTimeNullableFilter<"seller_product_offers"> | Date | string | null
+    is_auto_generated?: BoolNullableFilter<"seller_product_offers"> | boolean | null
     seller_products?: XOR<Seller_productsNullableRelationFilter, seller_productsWhereInput> | null
   }
 
@@ -23969,6 +23983,7 @@ export namespace Prisma {
     discount_value?: SortOrderInput | SortOrder
     start_date?: SortOrderInput | SortOrder
     end_date?: SortOrderInput | SortOrder
+    is_auto_generated?: SortOrderInput | SortOrder
     seller_products?: seller_productsOrderByWithRelationInput
   }
 
@@ -23982,6 +23997,7 @@ export namespace Prisma {
     discount_value?: DecimalNullableFilter<"seller_product_offers"> | Decimal | DecimalJsLike | number | string | null
     start_date?: DateTimeNullableFilter<"seller_product_offers"> | Date | string | null
     end_date?: DateTimeNullableFilter<"seller_product_offers"> | Date | string | null
+    is_auto_generated?: BoolNullableFilter<"seller_product_offers"> | boolean | null
     seller_products?: XOR<Seller_productsNullableRelationFilter, seller_productsWhereInput> | null
   }, "offer_id">
 
@@ -23992,6 +24008,7 @@ export namespace Prisma {
     discount_value?: SortOrderInput | SortOrder
     start_date?: SortOrderInput | SortOrder
     end_date?: SortOrderInput | SortOrder
+    is_auto_generated?: SortOrderInput | SortOrder
     _count?: seller_product_offersCountOrderByAggregateInput
     _avg?: seller_product_offersAvgOrderByAggregateInput
     _max?: seller_product_offersMaxOrderByAggregateInput
@@ -24009,6 +24026,7 @@ export namespace Prisma {
     discount_value?: DecimalNullableWithAggregatesFilter<"seller_product_offers"> | Decimal | DecimalJsLike | number | string | null
     start_date?: DateTimeNullableWithAggregatesFilter<"seller_product_offers"> | Date | string | null
     end_date?: DateTimeNullableWithAggregatesFilter<"seller_product_offers"> | Date | string | null
+    is_auto_generated?: BoolNullableWithAggregatesFilter<"seller_product_offers"> | boolean | null
   }
 
   export type seller_productsWhereInput = {
@@ -25088,6 +25106,7 @@ export namespace Prisma {
     discount_value?: Decimal | DecimalJsLike | number | string | null
     start_date?: Date | string | null
     end_date?: Date | string | null
+    is_auto_generated?: boolean | null
     seller_products?: seller_productsCreateNestedOneWithoutSeller_product_offersInput
   }
 
@@ -25098,6 +25117,7 @@ export namespace Prisma {
     discount_value?: Decimal | DecimalJsLike | number | string | null
     start_date?: Date | string | null
     end_date?: Date | string | null
+    is_auto_generated?: boolean | null
   }
 
   export type seller_product_offersUpdateInput = {
@@ -25105,6 +25125,7 @@ export namespace Prisma {
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_auto_generated?: NullableBoolFieldUpdateOperationsInput | boolean | null
     seller_products?: seller_productsUpdateOneWithoutSeller_product_offersNestedInput
   }
 
@@ -25115,6 +25136,7 @@ export namespace Prisma {
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_auto_generated?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type seller_product_offersCreateManyInput = {
@@ -25124,6 +25146,7 @@ export namespace Prisma {
     discount_value?: Decimal | DecimalJsLike | number | string | null
     start_date?: Date | string | null
     end_date?: Date | string | null
+    is_auto_generated?: boolean | null
   }
 
   export type seller_product_offersUpdateManyMutationInput = {
@@ -25131,6 +25154,7 @@ export namespace Prisma {
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_auto_generated?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type seller_product_offersUncheckedUpdateManyInput = {
@@ -25140,6 +25164,7 @@ export namespace Prisma {
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_auto_generated?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type seller_productsCreateInput = {
@@ -26331,6 +26356,7 @@ export namespace Prisma {
     discount_value?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
+    is_auto_generated?: SortOrder
   }
 
   export type seller_product_offersAvgOrderByAggregateInput = {
@@ -26346,6 +26372,7 @@ export namespace Prisma {
     discount_value?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
+    is_auto_generated?: SortOrder
   }
 
   export type seller_product_offersMinOrderByAggregateInput = {
@@ -26355,6 +26382,7 @@ export namespace Prisma {
     discount_value?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
+    is_auto_generated?: SortOrder
   }
 
   export type seller_product_offersSumOrderByAggregateInput = {
@@ -29374,6 +29402,7 @@ export namespace Prisma {
     discount_value?: Decimal | DecimalJsLike | number | string | null
     start_date?: Date | string | null
     end_date?: Date | string | null
+    is_auto_generated?: boolean | null
   }
 
   export type seller_product_offersUncheckedCreateWithoutSeller_productsInput = {
@@ -29382,6 +29411,7 @@ export namespace Prisma {
     discount_value?: Decimal | DecimalJsLike | number | string | null
     start_date?: Date | string | null
     end_date?: Date | string | null
+    is_auto_generated?: boolean | null
   }
 
   export type seller_product_offersCreateOrConnectWithoutSeller_productsInput = {
@@ -29516,6 +29546,7 @@ export namespace Prisma {
     discount_value?: DecimalNullableFilter<"seller_product_offers"> | Decimal | DecimalJsLike | number | string | null
     start_date?: DateTimeNullableFilter<"seller_product_offers"> | Date | string | null
     end_date?: DateTimeNullableFilter<"seller_product_offers"> | Date | string | null
+    is_auto_generated?: BoolNullableFilter<"seller_product_offers"> | boolean | null
   }
 
   export type productsUpsertWithoutSeller_productsInput = {
@@ -30686,6 +30717,7 @@ export namespace Prisma {
     discount_value?: Decimal | DecimalJsLike | number | string | null
     start_date?: Date | string | null
     end_date?: Date | string | null
+    is_auto_generated?: boolean | null
   }
 
   export type product_price_historyUpdateWithoutSeller_productsInput = {
@@ -30710,6 +30742,7 @@ export namespace Prisma {
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_auto_generated?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type seller_product_offersUncheckedUpdateWithoutSeller_productsInput = {
@@ -30718,6 +30751,7 @@ export namespace Prisma {
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_auto_generated?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type seller_product_offersUncheckedUpdateManyWithoutSeller_productsInput = {
@@ -30726,6 +30760,7 @@ export namespace Prisma {
     discount_value?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_auto_generated?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type seller_imagesCreateManySeller_profilesInput = {

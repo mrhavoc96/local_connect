@@ -17,6 +17,8 @@ import searchRoutes from "./modules/search/search.routes.js"
 import productRoutes from "./modules/product/product.routes.js";
 
 import sellerAuthRoutes from "./modules/seller-auth/seller-auth.routes.js";
+import sellerProfileRoutes from "./modules/seller-profile/seller-profile.routes.js";
+import sellerDashboardRoutes from "./modules/seller-dashboard/seller-dashboard.routes.js";
 
 const app = express();
 
@@ -52,6 +54,8 @@ app.use("/api/products", productRoutes);
 
 // Seller portal
 app.use("/api/seller/auth", sellerAuthRoutes);
+app.use("/api/seller/profile",   sellerProfileRoutes);
+app.use("/api/seller/dashboard", sellerDashboardRoutes);
 
 // Health check — useful for deployment and uptime monitoring
 app.get("/api/health", (req, res) => {

@@ -47,6 +47,15 @@ async function validateEmailDomain(email) {
 // generateTokens — creates access + refresh JWT pair
 // Payload carries user_id, roles, and seller_id for seller-specific use
 // -----------------------------------------------------------------------------
+
+// const sellerId = user.seller_id ? Number(user.seller_id) : null;
+
+// Add these three lines
+// console.log("user row from DB:", user);
+// console.log("sellerId value:", sellerId);
+// console.log("roles:", roles);
+
+
 function generateTokens(userId, roles, sellerId) {
   const payload = { user_id: userId, roles, seller_id: sellerId };
 
