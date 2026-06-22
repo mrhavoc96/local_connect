@@ -96,8 +96,9 @@ function generateVerificationToken() {
 //   5. DB insert via stored procedure
 //   6. Verification token generation + storage
 //   7. Verification email dispatch
+//   8. Store location in user_addresses (if latitude & longitude provided)
 // -----------------------------------------------------------------------------
-const registerUser = async ({ name, email, phone, password }) => {
+const registerUser = async ({ name, email, phone, password, latitude, longitude }) => {
   // --- Step 1: Presence checks ---
   if (!name || !email || !password) {
     throw new ApiError(400, "Name, email, and password are required.");
@@ -108,10 +109,12 @@ const registerUser = async ({ name, email, phone, password }) => {
     throw new ApiError(400, "Please provide a valid email address.");
   }
 
-  // --- Step 3: MX record check (Level 2) ---
-  const domainIsValid = await validateEmailDomain(email);
-  if (!domainIsValid) {
-    throw new ApiError(400, "Email domain does not appear to be valid. Please use a real email address.");
+  // --- Step 3: MX record check (Level 2) — only in production ---
+  if (process.env.NODE_ENV === "production") {
+    const domainIsValid = await validateEmailDomain(email);
+    if (!domainIsValid) {
+      throw new ApiError(400, "Email domain does not appear to be valid. Please use a real email address.");
+    }
   }
 
   // --- Step 4: Password length ---
@@ -122,9 +125,10 @@ const registerUser = async ({ name, email, phone, password }) => {
   // --- Step 5: Check for existing email ---
   // We call the stored procedure directly — if a user with this email exists
   // it will return a row; we reject before attempting insertion.
-  const existing = await prisma.$queryRaw`
-    SELECT * FROM get_user_by_email(${email})
-  `;
+  const existing = await prisma.$queryRawUnsafe(
+    `SELECT * FROM get_user_by_email($1)`,
+    email
+  );
   if (existing.length > 0) {
     throw new ApiError(409, "An account with this email already exists.");
   }
@@ -151,6 +155,23 @@ const registerUser = async ({ name, email, phone, password }) => {
 
   const verifyUrl = `${env.apiBaseUrl}/api/auth/verify-email?token=${rawToken}`;
   await sendVerificationEmail(email, verifyUrl);
+
+  // --- Step 8: Store location in user_addresses if latitude and longitude provided ---
+  if (latitude !== undefined && latitude !== null && longitude !== undefined && longitude !== null) {
+    try {
+      await prisma.$executeRawUnsafe(
+        `INSERT INTO user_addresses (user_id, address_text, latitude, longitude) 
+         VALUES ($1, $2, $3, $4)`,
+        Number(newUser.user_id), 
+        'Registered Location', 
+        parseFloat(latitude), 
+        parseFloat(longitude)
+      );
+    } catch (addressErr) {
+      console.warn('Error saving user location:', addressErr);
+      // Don't fail registration if location save fails
+    }
+  }
 
   return {
       user_id: newUser.user_id,
@@ -179,9 +200,10 @@ const verifyEmail = async (rawToken) => {
     .digest("hex");
 
   // The stored procedure handles all DB logic and returns a status string
-  const rows = await prisma.$queryRaw`
-    SELECT verify_email_token(${tokenHash}) AS status
-  `;
+  const rows = await prisma.$queryRawUnsafe(
+    `SELECT verify_email_token($1) AS status`,
+    tokenHash
+  );
   const status = rows[0]?.status;
 
   if (status === "invalid_token") {

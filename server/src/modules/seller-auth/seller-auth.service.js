@@ -107,13 +107,15 @@ const registerSeller = async ({
     throw new ApiError(400, "Please provide a valid email address.");
   }
 
-  // --- MX record check (Level 2) ---
-  const domainIsValid = await validateEmailDomain(email);
-  if (!domainIsValid) {
-    throw new ApiError(
-      400,
-      "Email domain does not appear to be valid. Please use a real email address."
-    );
+  // --- MX record check (Level 2) — only in production ---
+  if (process.env.NODE_ENV === "production") {
+    const domainIsValid = await validateEmailDomain(email);
+    if (!domainIsValid) {
+      throw new ApiError(
+        400,
+        "Email domain does not appear to be valid. Please use a real email address."
+      );
+    }
   }
 
   // --- Password length ---

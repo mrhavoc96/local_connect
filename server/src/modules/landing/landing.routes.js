@@ -6,11 +6,17 @@
 // =============================================================================
 
 import { Router } from "express";
-import { getLandingSuggestions } from "./landing.controller.js";
+import { getLandingSuggestions, getCategoriesHandler, getProductsByCategoryHandler } from "./landing.controller.js";
 
 const router = Router();
 
 // GET /api/landing/suggestions
 router.get("/suggestions", getLandingSuggestions);
+
+// GET /api/landing/categories
+router.get("/categories", getCategoriesHandler);
+
+// GET /api/landing/category/:category
+router.get("/category/:category", getProductsByCategoryHandler);
 
 export default router;
