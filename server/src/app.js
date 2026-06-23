@@ -27,9 +27,17 @@ const app = express();
 // =============================================================================
 
 // CORS — configure allowed origins as needed
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174", 
+  "http://localhost:5175",
+  "http://localhost:5176",
+  "http://localhost:3000"
+];
+
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    origin: process.env.CORS_ORIGIN || allowedOrigins,
     credentials: true, // Required for cookies (refresh token) to work cross-origin
   })
 );

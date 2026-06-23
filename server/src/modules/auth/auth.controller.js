@@ -33,9 +33,9 @@ const refreshTokenCookieOptions = {
 // POST /api/auth/register
 // -----------------------------------------------------------------------------
 const register = asyncHandler(async (req, res) => {
-  const { name, email, phone, password } = req.body;
+  const { name, email, phone, password, latitude, longitude } = req.body;
 
-  const user = await registerUser({ name, email, phone, password });
+  const user = await registerUser({ name, email, phone, password, latitude, longitude });
 
   return res.status(201).json(
     new ApiResponse(

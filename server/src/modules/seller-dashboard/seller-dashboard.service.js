@@ -27,7 +27,26 @@ const searchCatalogue = async (query) => {
   }
 
   const rows = await prisma.$queryRawUnsafe(
-    `SELECT * FROM search_catalogue($1)`,
+    `
+      SELECT
+        p.product_id::INTEGER,
+        p.brand,
+        p.model_name,
+        p.category,
+        p.description,
+        p.base_price,
+        pi.image_url
+      FROM products p
+      LEFT JOIN LATERAL (
+        SELECT image_url
+        FROM product_images
+        WHERE product_id = p.product_id
+        LIMIT 1
+      ) pi ON true
+      WHERE (COALESCE(p.brand, '') || ' ' || COALESCE(p.model_name, '')) ILIKE ('%' || $1 || '%')
+      ORDER BY p.brand, p.model_name
+      LIMIT 50
+    `,
     query.trim()
   );
 
