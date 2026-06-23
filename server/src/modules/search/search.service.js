@@ -29,12 +29,22 @@ const getAutocompleteSuggestions = async (query) => {
     return [];
   }
 
+  const normalizedQuery = `%${query.trim().replace(/%/g, "\\%").replace(/_/g, "\\_")}%`;
+
   const rows = await prisma.$queryRawUnsafe(
-    `SELECT * FROM search_autocomplete($1)`,
-    query.trim()
+    `SELECT DISTINCT brand, model_name, category
+     FROM products
+     WHERE brand ILIKE $1 OR model_name ILIKE $1 OR category ILIKE $1 OR description ILIKE $1
+     ORDER BY model_name ASC
+     LIMIT 8`,
+    normalizedQuery
   );
 
-  return rows;
+  return rows.map((row) => ({
+    brand: row.brand,
+    model_name: row.model_name,
+    category: row.category,
+  }));
 };
 
 // -----------------------------------------------------------------------------
@@ -79,73 +89,91 @@ const searchProducts = async ({ query, lat, lng, radius }) => {
   // so the service layer is self-contained and testable independently
   parsedRadius = Math.min(parsedRadius, MAX_RADIUS_KM);
 
-  // --- Call stored procedure ---
+  // --- Search products directly using available tables ---
+  const normalizedQuery = `%${query.trim().replace(/%/g, "\\%").replace(/_/g, "\\_")}%`;
+
+  const productMatches = await prisma.$queryRawUnsafe(
+    `SELECT COUNT(*) AS count FROM products
+     WHERE brand ILIKE $1 OR model_name ILIKE $1 OR category ILIKE $1 OR description ILIKE $1`,
+    normalizedQuery
+  );
+
+  const catalogueCount = Number(productMatches[0]?.count ?? 0);
+
   const rows = await prisma.$queryRawUnsafe(
-    `SELECT * FROM search_products($1, $2, $3, $4)`,
-    query.trim(),
+    `SELECT
+       sp.seller_product_id,
+       sp.product_id,
+       p.brand,
+       p.model_name,
+       p.category,
+       p.description,
+       sp.price AS seller_price,
+       sp.warranty_months,
+       sp.seller_id,
+       s.shop_name,
+       s.latitude,
+       s.longitude,
+       6371 * acos(
+         cos(radians($2::numeric)) * cos(radians(s.latitude::numeric)) * cos(radians(s.longitude::numeric) - radians($3::numeric)) +
+         sin(radians($2::numeric)) * sin(radians(s.latitude::numeric))
+       ) AS distance_km
+     FROM seller_products sp
+     JOIN products p ON p.product_id = sp.product_id
+     JOIN seller_profiles s ON s.seller_id = sp.seller_id
+     WHERE sp.is_available = true
+       AND (p.brand ILIKE $1 OR p.model_name ILIKE $1 OR p.category ILIKE $1 OR p.description ILIKE $1)
+       AND s.latitude IS NOT NULL
+       AND s.longitude IS NOT NULL
+       AND 6371 * acos(
+         cos(radians($2::numeric)) * cos(radians(s.latitude::numeric)) * cos(radians(s.longitude::numeric) - radians($3::numeric)) +
+         sin(radians($2::numeric)) * sin(radians(s.latitude::numeric))
+       ) <= $4
+     ORDER BY distance_km ASC
+     LIMIT 50`,
+    normalizedQuery,
     parsedLat,
     parsedLng,
     parsedRadius
   );
 
-  // The procedure always returns at least one row (the status row)
-  // Read status from the first row
-  const status = rows[0]?.status;
+  if (rows.length > 0) {
+    const results = rows.map((row) => ({
+      seller_product_id:   Number(row.seller_product_id),
+      product_id:          Number(row.product_id),
+      brand:               row.brand,
+      model_name:          row.model_name,
+      category:            row.category,
+      description:         row.description,
+      seller_price:        row.seller_price ? parseFloat(row.seller_price) : null,
+      warranty_months:     row.warranty_months ? Number(row.warranty_months) : 0,
+      seller_id:           Number(row.seller_id),
+      shop_name:           row.shop_name,
+      distance_km:         row.distance_km ? parseFloat(row.distance_km) : null,
+      image_url:           row.image_url ?? null,
+    }));
 
-  // --- Interpret status and shape response ---
-
-  if (status === "not_in_catalogue") {
     return {
-      status,
+      status: 'found',
       can_expand: false,
-      message: "This product is not available on LocalMart yet.",
-      results: [],
+      results,
     };
   }
 
-  if (status === "no_sellers_in_radius") {
+  if (catalogueCount > 0) {
     return {
-      status,
+      status: 'no_sellers_in_radius',
       can_expand: true,
       message: `No sellers found within ${parsedRadius}km of your location. Try expanding your search radius.`,
       results: [],
     };
   }
 
-  if (status === "no_sellers_in_range") {
-    return {
-      status,
-      can_expand: false,
-      message: "No sellers carrying this product were found within 50km of your location.",
-      results: [],
-    };
-  }
-
-  // status === 'found' — map rows into clean result objects
-  // Convert any remaining Decimal/BigInt types that Prisma returns as objects
-  const results = rows.map((row) => ({
-    seller_product_id:      Number(row.seller_product_id),
-    product_id:             Number(row.product_id),
-    brand:                  row.brand,
-    model_name:             row.model_name,
-    category:               row.category,
-    base_price:             row.base_price      ? parseFloat(row.base_price)      : null,
-    seller_price:           row.seller_price    ? parseFloat(row.seller_price)    : null,
-    warranty_months:        row.warranty_months ? Number(row.warranty_months)     : 0,
-    product_average_rating: row.product_average_rating ? parseFloat(row.product_average_rating) : 0,
-    product_review_count:   row.product_review_count   ? Number(row.product_review_count)        : 0,
-    seller_id:              Number(row.seller_id),
-    shop_name:              row.shop_name,
-    seller_average_rating:  row.seller_average_rating  ? parseFloat(row.seller_average_rating)  : 0,
-    seller_review_count:    row.seller_review_count     ? Number(row.seller_review_count)         : 0,
-    distance_km:            row.distance_km    ? parseFloat(row.distance_km)    : null,
-    image_url:              row.image_url      ?? null,
-  }));
-
   return {
-    status,
+    status: 'not_in_catalogue',
     can_expand: false,
-    results,
+    message: 'This product is not available on LocalMart yet.',
+    results: [],
   };
 };
 

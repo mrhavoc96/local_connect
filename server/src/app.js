@@ -15,6 +15,7 @@ import authRoutes from "./modules/auth/auth.routes.js";
 import landingRoutes from "./modules/landing/landing.routes.js";
 import searchRoutes from "./modules/search/search.routes.js"
 import productRoutes from "./modules/product/product.routes.js";
+import chatbotRoutes from "./modules/chatbot/chatbot.routes.js";
 
 import sellerAuthRoutes from "./modules/seller-auth/seller-auth.routes.js";
 import sellerProfileRoutes from "./modules/seller-profile/seller-profile.routes.js";
@@ -27,17 +28,18 @@ const app = express();
 // =============================================================================
 
 // CORS — configure allowed origins as needed
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:5174", 
-  "http://localhost:5175",
-  "http://localhost:5176",
-  "http://localhost:3000"
-];
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(",").map((origin) => origin.trim())
+  : ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://localhost:5176"];
 
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || allowedOrigins,
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return callback(null, true);
+      return callback(new Error(`Origin ${origin} not allowed by CORS`));
+    },
     credentials: true, // Required for cookies (refresh token) to work cross-origin
   })
 );
@@ -58,6 +60,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/landing", landingRoutes)
 app.use("/api/search",  searchRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/chatbot", chatbotRoutes);
 
 
 // Seller portal

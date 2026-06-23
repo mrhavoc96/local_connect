@@ -1,66 +1,49 @@
-import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Home from './pages/Home'
-import SignIn from './pages/SignIn'
-import Register from './pages/Register'
-import SellerPortal from './pages/SellerPortal'
-import Search from './pages/Search'
-import Category from './pages/Category'
-import Product from './pages/Product'
-import SellerSignIn from './pages/SellerSignIn'
-import SellerRegister from './pages/SellerRegister'
-import SellerDashboard from './pages/SellerDashboard'
-import SellerProducts from './pages/SellerProducts'
-
+import React from 'react';
+import ChatbotWidget from './components/ChatbotWidget';
 
 const App = () => {
-  useEffect(() => {
-    // Set dark theme background
-    document.documentElement.style.setProperty('--bg', '#06080F')
-    document.documentElement.style.setProperty('--surface', '#0D1120')
-    document.documentElement.style.setProperty('--card', '#121729')
-    document.documentElement.style.setProperty('--card-hover', '#18203A')
-    document.documentElement.style.setProperty('--border', 'rgba(255,255,255,0.07)')
-    document.documentElement.style.setProperty('--orange', '#FF5C1A')
-    document.documentElement.style.setProperty('--orange-light', '#FF7A40')
-    document.documentElement.style.setProperty('--cyan', '#00D4B4')
-    document.documentElement.style.setProperty('--cyan-dim', 'rgba(0,212,180,0.15)')
-    document.documentElement.style.setProperty('--text', '#EEF2FF')
-    document.documentElement.style.setProperty('--muted', '#7B859E')
-    document.documentElement.style.setProperty('--tag-bg', 'rgba(255,92,26,0.12)')
-
-    document.body.style.background = '#06080F'
-    document.body.style.color = '#EEF2FF'
-  }, [])
-
   return (
-    <Router>
-      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: '#06080F' }}>
-        <Header />
-        <main style={{ flex: 1, marginTop: '68px' }}>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/home' element={<Home />} />
-            <Route path='/search' element={<Search />} />
-          <Route path='/category/:category' element={<Category />} />
-          <Route path='/product/:seller_product_id' element={<Product />} />
-          <Route path='/login' element={<SignIn />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/signup' element={<Register />} />
-          <Route path='/seller' element={<SellerPortal />} />
-          <Route path='/seller/login' element={<SellerSignIn />} />
-          <Route path='/seller/register' element={<SellerRegister />} />
-          <Route path='/seller/signup' element={<SellerRegister />} />
-          <Route path='/seller/dashboard' element={<SellerDashboard />} />
-          <Route path='/seller/products' element={<SellerProducts />} />
-        </Routes>
-      </main>
-      <Footer />
-    </div>
-  </Router>
-  )
-}
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <div className="max-w-6xl mx-auto px-4 py-10">
+        <header className="mb-10 rounded-3xl bg-white shadow-lg border border-slate-200 p-8">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h1 className="text-4xl font-bold text-slate-900 mb-3">LocalMart</h1>
+              <p className="text-slate-600 text-lg">
+                Welcome! Your chatbot assistant is ready to help find nearby products. Click the bot icon in the corner to open the chat.
+              </p>
+            </div>
+            <div className="inline-flex items-center gap-4 rounded-3xl bg-orange-100 px-5 py-4">
+              <div className="w-14 h-14 rounded-full bg-orange-500 flex items-center justify-center text-white text-2xl">🤖</div>
+              <div>
+                <p className="text-sm font-semibold text-slate-900">Chatbot live</p>
+                <p className="text-sm text-slate-600">Tap the floating bot button to ask about products.</p>
+              </div>
+            </div>
+          </div>
+        </header>
 
-export default App
+        <section className="grid gap-6 sm:grid-cols-2">
+          <div className="rounded-3xl bg-white border border-slate-200 p-6 shadow-sm">
+            <h2 className="text-2xl font-semibold mb-3">Chatbot search</h2>
+            <p className="text-slate-600">
+              Click the chat icon and ask for a product. The assistant calls the backend at `/api/chatbot/search` and returns nearby matches.
+            </p>
+          </div>
+          <div className="rounded-3xl bg-white border border-slate-200 p-6 shadow-sm">
+            <h2 className="text-2xl font-semibold mb-3">How it works</h2>
+            <ul className="list-disc list-inside text-slate-600 space-y-2">
+              <li>Chat widget sends a POST to the chatbot search adapter.</li>
+              <li>The backend forwards the query to the search service.</li>
+              <li>Products are shown in the chat panel when available.</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <ChatbotWidget />
+    </div>
+  );
+};
+
+export default App;
