@@ -12,21 +12,35 @@
 import prisma from "../../config/prisma.js";
 
 const getLandingPageSuggestions = async () => {
-
   const rows = await prisma.$queryRawUnsafe(
-    `SELECT * FROM get_landing_page_suggestions()`
+    `
+      SELECT
+        p.product_id::INTEGER,
+        p.brand,
+        p.model_name,
+        p.category,
+        p.description,
+        p.base_price,
+        COALESCE(SUM(pd.views_count + pd.wishlist_count), 0)::INTEGER AS popularity,
+        COALESCE(
+          JSON_AGG(pi.image_url ORDER BY pi.image_id) FILTER (WHERE pi.image_url IS NOT NULL),
+          '[]'
+        ) AS images
+      FROM products p
+      LEFT JOIN product_demand pd ON p.product_id = pd.product_id
+      LEFT JOIN product_images pi ON p.product_id = pi.product_id
+      GROUP BY p.product_id, p.brand, p.model_name, p.category, p.description, p.base_price
+      ORDER BY popularity DESC
+      LIMIT 10
+    `
   );
 
-  // Prisma returns JSON columns as raw strings.
-  // We parse them here so the controller sends a proper JS array to the client,
-  // not a stringified one like "[\"url1\",\"url2\"]".
   const products = rows.map((product) => ({
-  ...product,
-  popularity: Number(product.popularity),
-  review_count: Number(product.review_count),
-  images: typeof product.images === "string"
-    ? JSON.parse(product.images)
-    : product.images ?? [],
+    ...product,
+    popularity: Number(product.popularity),
+    images: typeof product.images === "string"
+      ? JSON.parse(product.images)
+      : product.images ?? [],
   }));
 
   return products;

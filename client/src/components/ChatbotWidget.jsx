@@ -130,7 +130,7 @@ const ChatbotWidget = ({ apiBase = import.meta.env.VITE_API_BASE || 'http://loca
       </button>
 
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-[360px] max-h-[580px] bg-slate-950 text-white rounded-[32px] shadow-[0_25px_70px_-20px_rgba(15,23,42,0.8)] flex flex-col overflow-hidden z-50 border border-white/10">
+        <div className="fixed bottom-24 right-3 left-3 sm:right-6 sm:left-auto w-[calc(100vw-1.5rem)] sm:w-[360px] max-w-[420px] max-h-[85vh] bg-slate-950 text-white rounded-[32px] shadow-[0_25px_70px_-20px_rgba(15,23,42,0.8)] flex flex-col overflow-hidden z-50 border border-white/10">
           <div className="bg-slate-900 px-4 py-4 flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 rounded-3xl bg-orange-500 flex items-center justify-center text-white shadow-lg">
@@ -219,7 +219,7 @@ const ChatbotWidget = ({ apiBase = import.meta.env.VITE_API_BASE || 'http://loca
           </div>
 
           <div className="bg-slate-900 border-t border-slate-800 px-4 py-3">
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <input
                 ref={inputRef}
                 type="text"
@@ -233,7 +233,7 @@ const ChatbotWidget = ({ apiBase = import.meta.env.VITE_API_BASE || 'http://loca
               <button
                 onClick={sendMessage}
                 disabled={isLoading || !inputText.trim()}
-                className="w-12 h-12 rounded-full bg-orange-500 hover:bg-orange-600 text-white flex items-center justify-center transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-full sm:w-12 h-12 rounded-full bg-orange-500 hover:bg-orange-600 text-white flex items-center justify-center transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 aria-label="Send message"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

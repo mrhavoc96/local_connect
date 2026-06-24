@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import ChatbotWidget from '../components/ChatbotWidget';
 
 const Home = () => {
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
-  const [chatOpen, setChatOpen] = useState(false)
+  // const [chatOpen, setChatOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchSuggestions, setSearchSuggestions] = useState([])
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false)
@@ -41,7 +42,7 @@ const Home = () => {
     fetchData()
   }, [])
 
-  const toggleChat = () => setChatOpen(!chatOpen)
+  // const toggleChat = () => setChatOpen(!chatOpen)
 
   const fetchSearchSuggestions = async (q) => {
     if (!q || q.trim().length < 1) {
@@ -346,41 +347,12 @@ const Home = () => {
         )}
       </section>
 
-      {/* ========== CHATBOT ========== */}
-      <button id='chat-btn' onClick={toggleChat} style={{ position: 'fixed', bottom: '32px', right: '32px', zIndex: 200, width: '58px', height: '58px', borderRadius: '50%', border: 'none', background: 'linear-gradient(135deg, #ff5c1a, #ff8c42)', color: '#fff', cursor: 'pointer', fontSize: '1.5rem', boxShadow: '0 8px 24px rgba(255,92,26,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.3s' }}>
-        🤖
-      </button>
 
-      {chatOpen && (
-        <div id='chat-window' style={{ position: 'fixed', bottom: '104px', right: '32px', zIndex: 200, width: '380px', background: '#0d1120', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '20px', boxShadow: '0 24px 60px rgba(0,0,0,0.6)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-          <div style={{ background: 'linear-gradient(135deg, #0f1320, #1a1f35)', padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'linear-gradient(135deg, #ff5c1a, #ff8c42)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>
-                🤖
-              </div>
-              <div>
-                <div style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '0.9rem' }}>LocalConnect AI</div>
-                <div style={{ fontSize: '0.72rem', color: '#00d4b4' }}>● Online — powered by AI</div>
-              </div>
-            </div>
-            <button onClick={toggleChat} style={{ background: 'none', border: 'none', color: '#7b859e', cursor: 'pointer', fontSize: '1.1rem' }}>✕</button>
-          </div>
+      <div style={{ paddingTop: '30px' }}>
+    {/* All your existing content */}
 
-          <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px', height: '320px', overflowY: 'auto' }}>
-            <div style={{ maxWidth: '85%', alignSelf: 'flex-start' }}>
-              <div style={{ padding: '10px 14px', borderRadius: '14px', fontSize: '0.85rem', lineHeight: 1.5, background: '#121729', color: '#eef2ff', borderBottomLeftRadius: '4px' }}>
-                Hey there! 👋 I'm your AI shopping assistant. Tell me what you're looking for and I'll find the best options from stores near you!
-              </div>
-              <div style={{ fontSize: '0.65rem', color: '#7b859e', marginTop: '4px', textAlign: 'left' }}>Just now</div>
-            </div>
-          </div>
-
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '12px 16px', display: 'flex', gap: '10px', alignItems: 'center' }}>
-            <input type='text' placeholder='Ask me anything about electronics…' style={{ flex: 1, background: '#121729', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '10px', padding: '9px 14px', color: '#eef2ff', fontFamily: "'DM Sans', sans-serif", fontSize: '0.85rem', outline: 'none' }} />
-            <button style={{ background: '#ff5c1a', color: '#fff', border: 'none', width: '36px', height: '36px', borderRadius: '10px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>➤</button>
-          </div>
-        </div>
-      )}
+    <ChatbotWidget />
+      </div>
 
       <style>{`
         @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
@@ -391,6 +363,7 @@ const Home = () => {
         div::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
       `}</style>
     </div>
+
   )
 }
 
