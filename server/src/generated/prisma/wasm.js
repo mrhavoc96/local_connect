@@ -282,6 +282,13 @@ exports.Prisma.Wishlist_itemsScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.Seller_product_viewsScalarFieldEnum = {
+  view_id: 'view_id',
+  seller_product_id: 'seller_product_id',
+  product_id: 'product_id',
+  viewed_at: 'viewed_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -318,7 +325,8 @@ exports.Prisma.ModelName = {
   user_addresses: 'user_addresses',
   user_roles: 'user_roles',
   users: 'users',
-  wishlist_items: 'wishlist_items'
+  wishlist_items: 'wishlist_items',
+  seller_product_views: 'seller_product_views'
 };
 
 /**

@@ -113,6 +113,11 @@ export type users = $Result.DefaultSelection<Prisma.$usersPayload>
  * 
  */
 export type wishlist_items = $Result.DefaultSelection<Prisma.$wishlist_itemsPayload>
+/**
+ * Model seller_product_views
+ * 
+ */
+export type seller_product_views = $Result.DefaultSelection<Prisma.$seller_product_viewsPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -436,6 +441,16 @@ export class PrismaClient<
     * ```
     */
   get wishlist_items(): Prisma.wishlist_itemsDelegate<ExtArgs>;
+
+  /**
+   * `prisma.seller_product_views`: Exposes CRUD operations for the **seller_product_views** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Seller_product_views
+    * const seller_product_views = await prisma.seller_product_views.findMany()
+    * ```
+    */
+  get seller_product_views(): Prisma.seller_product_viewsDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -896,7 +911,8 @@ export namespace Prisma {
     user_addresses: 'user_addresses',
     user_roles: 'user_roles',
     users: 'users',
-    wishlist_items: 'wishlist_items'
+    wishlist_items: 'wishlist_items',
+    seller_product_views: 'seller_product_views'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -912,7 +928,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "email_verifications" | "external_market_prices" | "notifications" | "product_demand" | "product_images" | "product_price_history" | "product_specifications" | "products" | "review_media" | "review_targets" | "reviews" | "roles" | "seller_images" | "seller_product_offers" | "seller_products" | "seller_profiles" | "user_addresses" | "user_roles" | "users" | "wishlist_items"
+      modelProps: "email_verifications" | "external_market_prices" | "notifications" | "product_demand" | "product_images" | "product_price_history" | "product_specifications" | "products" | "review_media" | "review_targets" | "reviews" | "roles" | "seller_images" | "seller_product_offers" | "seller_products" | "seller_profiles" | "user_addresses" | "user_roles" | "users" | "wishlist_items" | "seller_product_views"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2316,6 +2332,76 @@ export namespace Prisma {
           }
         }
       }
+      seller_product_views: {
+        payload: Prisma.$seller_product_viewsPayload<ExtArgs>
+        fields: Prisma.seller_product_viewsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.seller_product_viewsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$seller_product_viewsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.seller_product_viewsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$seller_product_viewsPayload>
+          }
+          findFirst: {
+            args: Prisma.seller_product_viewsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$seller_product_viewsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.seller_product_viewsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$seller_product_viewsPayload>
+          }
+          findMany: {
+            args: Prisma.seller_product_viewsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$seller_product_viewsPayload>[]
+          }
+          create: {
+            args: Prisma.seller_product_viewsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$seller_product_viewsPayload>
+          }
+          createMany: {
+            args: Prisma.seller_product_viewsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.seller_product_viewsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$seller_product_viewsPayload>[]
+          }
+          delete: {
+            args: Prisma.seller_product_viewsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$seller_product_viewsPayload>
+          }
+          update: {
+            args: Prisma.seller_product_viewsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$seller_product_viewsPayload>
+          }
+          deleteMany: {
+            args: Prisma.seller_product_viewsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.seller_product_viewsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.seller_product_viewsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$seller_product_viewsPayload>
+          }
+          aggregate: {
+            args: Prisma.Seller_product_viewsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSeller_product_views>
+          }
+          groupBy: {
+            args: Prisma.seller_product_viewsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Seller_product_viewsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.seller_product_viewsCountArgs<ExtArgs>
+            result: $Utils.Optional<Seller_product_viewsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2481,6 +2567,7 @@ export namespace Prisma {
     product_demand: number
     product_images: number
     product_specifications: number
+    seller_product_views: number
     seller_products: number
     wishlist_items: number
   }
@@ -2490,6 +2577,7 @@ export namespace Prisma {
     product_demand?: boolean | ProductsCountOutputTypeCountProduct_demandArgs
     product_images?: boolean | ProductsCountOutputTypeCountProduct_imagesArgs
     product_specifications?: boolean | ProductsCountOutputTypeCountProduct_specificationsArgs
+    seller_product_views?: boolean | ProductsCountOutputTypeCountSeller_product_viewsArgs
     seller_products?: boolean | ProductsCountOutputTypeCountSeller_productsArgs
     wishlist_items?: boolean | ProductsCountOutputTypeCountWishlist_itemsArgs
   }
@@ -2531,6 +2619,13 @@ export namespace Prisma {
    */
   export type ProductsCountOutputTypeCountProduct_specificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: product_specificationsWhereInput
+  }
+
+  /**
+   * ProductsCountOutputType without action
+   */
+  export type ProductsCountOutputTypeCountSeller_product_viewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: seller_product_viewsWhereInput
   }
 
   /**
@@ -2626,11 +2721,13 @@ export namespace Prisma {
   export type Seller_productsCountOutputType = {
     product_price_history: number
     seller_product_offers: number
+    seller_product_views: number
   }
 
   export type Seller_productsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product_price_history?: boolean | Seller_productsCountOutputTypeCountProduct_price_historyArgs
     seller_product_offers?: boolean | Seller_productsCountOutputTypeCountSeller_product_offersArgs
+    seller_product_views?: boolean | Seller_productsCountOutputTypeCountSeller_product_viewsArgs
   }
 
   // Custom InputTypes
@@ -2656,6 +2753,13 @@ export namespace Prisma {
    */
   export type Seller_productsCountOutputTypeCountSeller_product_offersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: seller_product_offersWhereInput
+  }
+
+  /**
+   * Seller_productsCountOutputType without action
+   */
+  export type Seller_productsCountOutputTypeCountSeller_product_viewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: seller_product_viewsWhereInput
   }
 
 
@@ -9832,6 +9936,7 @@ export namespace Prisma {
     product_demand?: boolean | products$product_demandArgs<ExtArgs>
     product_images?: boolean | products$product_imagesArgs<ExtArgs>
     product_specifications?: boolean | products$product_specificationsArgs<ExtArgs>
+    seller_product_views?: boolean | products$seller_product_viewsArgs<ExtArgs>
     seller_products?: boolean | products$seller_productsArgs<ExtArgs>
     wishlist_items?: boolean | products$wishlist_itemsArgs<ExtArgs>
     _count?: boolean | ProductsCountOutputTypeDefaultArgs<ExtArgs>
@@ -9864,6 +9969,7 @@ export namespace Prisma {
     product_demand?: boolean | products$product_demandArgs<ExtArgs>
     product_images?: boolean | products$product_imagesArgs<ExtArgs>
     product_specifications?: boolean | products$product_specificationsArgs<ExtArgs>
+    seller_product_views?: boolean | products$seller_product_viewsArgs<ExtArgs>
     seller_products?: boolean | products$seller_productsArgs<ExtArgs>
     wishlist_items?: boolean | products$wishlist_itemsArgs<ExtArgs>
     _count?: boolean | ProductsCountOutputTypeDefaultArgs<ExtArgs>
@@ -9877,6 +9983,7 @@ export namespace Prisma {
       product_demand: Prisma.$product_demandPayload<ExtArgs>[]
       product_images: Prisma.$product_imagesPayload<ExtArgs>[]
       product_specifications: Prisma.$product_specificationsPayload<ExtArgs>[]
+      seller_product_views: Prisma.$seller_product_viewsPayload<ExtArgs>[]
       seller_products: Prisma.$seller_productsPayload<ExtArgs>[]
       wishlist_items: Prisma.$wishlist_itemsPayload<ExtArgs>[]
     }
@@ -10257,6 +10364,7 @@ export namespace Prisma {
     product_demand<T extends products$product_demandArgs<ExtArgs> = {}>(args?: Subset<T, products$product_demandArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$product_demandPayload<ExtArgs>, T, "findMany"> | Null>
     product_images<T extends products$product_imagesArgs<ExtArgs> = {}>(args?: Subset<T, products$product_imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$product_imagesPayload<ExtArgs>, T, "findMany"> | Null>
     product_specifications<T extends products$product_specificationsArgs<ExtArgs> = {}>(args?: Subset<T, products$product_specificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$product_specificationsPayload<ExtArgs>, T, "findMany"> | Null>
+    seller_product_views<T extends products$seller_product_viewsArgs<ExtArgs> = {}>(args?: Subset<T, products$seller_product_viewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$seller_product_viewsPayload<ExtArgs>, T, "findMany"> | Null>
     seller_products<T extends products$seller_productsArgs<ExtArgs> = {}>(args?: Subset<T, products$seller_productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$seller_productsPayload<ExtArgs>, T, "findMany"> | Null>
     wishlist_items<T extends products$wishlist_itemsArgs<ExtArgs> = {}>(args?: Subset<T, products$wishlist_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$wishlist_itemsPayload<ExtArgs>, T, "findMany"> | Null>
     /**
@@ -10687,6 +10795,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Product_specificationsScalarFieldEnum | Product_specificationsScalarFieldEnum[]
+  }
+
+  /**
+   * products.seller_product_views
+   */
+  export type products$seller_product_viewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the seller_product_views
+     */
+    select?: seller_product_viewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: seller_product_viewsInclude<ExtArgs> | null
+    where?: seller_product_viewsWhereInput
+    orderBy?: seller_product_viewsOrderByWithRelationInput | seller_product_viewsOrderByWithRelationInput[]
+    cursor?: seller_product_viewsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Seller_product_viewsScalarFieldEnum | Seller_product_viewsScalarFieldEnum[]
   }
 
   /**
@@ -16894,6 +17022,7 @@ export namespace Prisma {
     warranty_months?: boolean
     product_price_history?: boolean | seller_products$product_price_historyArgs<ExtArgs>
     seller_product_offers?: boolean | seller_products$seller_product_offersArgs<ExtArgs>
+    seller_product_views?: boolean | seller_products$seller_product_viewsArgs<ExtArgs>
     products?: boolean | seller_products$productsArgs<ExtArgs>
     seller_profiles?: boolean | seller_products$seller_profilesArgs<ExtArgs>
     _count?: boolean | Seller_productsCountOutputTypeDefaultArgs<ExtArgs>
@@ -16924,6 +17053,7 @@ export namespace Prisma {
   export type seller_productsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product_price_history?: boolean | seller_products$product_price_historyArgs<ExtArgs>
     seller_product_offers?: boolean | seller_products$seller_product_offersArgs<ExtArgs>
+    seller_product_views?: boolean | seller_products$seller_product_viewsArgs<ExtArgs>
     products?: boolean | seller_products$productsArgs<ExtArgs>
     seller_profiles?: boolean | seller_products$seller_profilesArgs<ExtArgs>
     _count?: boolean | Seller_productsCountOutputTypeDefaultArgs<ExtArgs>
@@ -16938,6 +17068,7 @@ export namespace Prisma {
     objects: {
       product_price_history: Prisma.$product_price_historyPayload<ExtArgs>[]
       seller_product_offers: Prisma.$seller_product_offersPayload<ExtArgs>[]
+      seller_product_views: Prisma.$seller_product_viewsPayload<ExtArgs>[]
       products: Prisma.$productsPayload<ExtArgs> | null
       seller_profiles: Prisma.$seller_profilesPayload<ExtArgs> | null
     }
@@ -17315,6 +17446,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     product_price_history<T extends seller_products$product_price_historyArgs<ExtArgs> = {}>(args?: Subset<T, seller_products$product_price_historyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$product_price_historyPayload<ExtArgs>, T, "findMany"> | Null>
     seller_product_offers<T extends seller_products$seller_product_offersArgs<ExtArgs> = {}>(args?: Subset<T, seller_products$seller_product_offersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$seller_product_offersPayload<ExtArgs>, T, "findMany"> | Null>
+    seller_product_views<T extends seller_products$seller_product_viewsArgs<ExtArgs> = {}>(args?: Subset<T, seller_products$seller_product_viewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$seller_product_viewsPayload<ExtArgs>, T, "findMany"> | Null>
     products<T extends seller_products$productsArgs<ExtArgs> = {}>(args?: Subset<T, seller_products$productsArgs<ExtArgs>>): Prisma__productsClient<$Result.GetResult<Prisma.$productsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     seller_profiles<T extends seller_products$seller_profilesArgs<ExtArgs> = {}>(args?: Subset<T, seller_products$seller_profilesArgs<ExtArgs>>): Prisma__seller_profilesClient<$Result.GetResult<Prisma.$seller_profilesPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
@@ -17708,6 +17840,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Seller_product_offersScalarFieldEnum | Seller_product_offersScalarFieldEnum[]
+  }
+
+  /**
+   * seller_products.seller_product_views
+   */
+  export type seller_products$seller_product_viewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the seller_product_views
+     */
+    select?: seller_product_viewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: seller_product_viewsInclude<ExtArgs> | null
+    where?: seller_product_viewsWhereInput
+    orderBy?: seller_product_viewsOrderByWithRelationInput | seller_product_viewsOrderByWithRelationInput[]
+    cursor?: seller_product_viewsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Seller_product_viewsScalarFieldEnum | Seller_product_viewsScalarFieldEnum[]
   }
 
   /**
@@ -22902,6 +23054,975 @@ export namespace Prisma {
 
 
   /**
+   * Model seller_product_views
+   */
+
+  export type AggregateSeller_product_views = {
+    _count: Seller_product_viewsCountAggregateOutputType | null
+    _avg: Seller_product_viewsAvgAggregateOutputType | null
+    _sum: Seller_product_viewsSumAggregateOutputType | null
+    _min: Seller_product_viewsMinAggregateOutputType | null
+    _max: Seller_product_viewsMaxAggregateOutputType | null
+  }
+
+  export type Seller_product_viewsAvgAggregateOutputType = {
+    view_id: number | null
+    seller_product_id: number | null
+    product_id: number | null
+  }
+
+  export type Seller_product_viewsSumAggregateOutputType = {
+    view_id: number | null
+    seller_product_id: number | null
+    product_id: number | null
+  }
+
+  export type Seller_product_viewsMinAggregateOutputType = {
+    view_id: number | null
+    seller_product_id: number | null
+    product_id: number | null
+    viewed_at: Date | null
+  }
+
+  export type Seller_product_viewsMaxAggregateOutputType = {
+    view_id: number | null
+    seller_product_id: number | null
+    product_id: number | null
+    viewed_at: Date | null
+  }
+
+  export type Seller_product_viewsCountAggregateOutputType = {
+    view_id: number
+    seller_product_id: number
+    product_id: number
+    viewed_at: number
+    _all: number
+  }
+
+
+  export type Seller_product_viewsAvgAggregateInputType = {
+    view_id?: true
+    seller_product_id?: true
+    product_id?: true
+  }
+
+  export type Seller_product_viewsSumAggregateInputType = {
+    view_id?: true
+    seller_product_id?: true
+    product_id?: true
+  }
+
+  export type Seller_product_viewsMinAggregateInputType = {
+    view_id?: true
+    seller_product_id?: true
+    product_id?: true
+    viewed_at?: true
+  }
+
+  export type Seller_product_viewsMaxAggregateInputType = {
+    view_id?: true
+    seller_product_id?: true
+    product_id?: true
+    viewed_at?: true
+  }
+
+  export type Seller_product_viewsCountAggregateInputType = {
+    view_id?: true
+    seller_product_id?: true
+    product_id?: true
+    viewed_at?: true
+    _all?: true
+  }
+
+  export type Seller_product_viewsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which seller_product_views to aggregate.
+     */
+    where?: seller_product_viewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of seller_product_views to fetch.
+     */
+    orderBy?: seller_product_viewsOrderByWithRelationInput | seller_product_viewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: seller_product_viewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` seller_product_views from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` seller_product_views.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned seller_product_views
+    **/
+    _count?: true | Seller_product_viewsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Seller_product_viewsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Seller_product_viewsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Seller_product_viewsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Seller_product_viewsMaxAggregateInputType
+  }
+
+  export type GetSeller_product_viewsAggregateType<T extends Seller_product_viewsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSeller_product_views]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSeller_product_views[P]>
+      : GetScalarType<T[P], AggregateSeller_product_views[P]>
+  }
+
+
+
+
+  export type seller_product_viewsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: seller_product_viewsWhereInput
+    orderBy?: seller_product_viewsOrderByWithAggregationInput | seller_product_viewsOrderByWithAggregationInput[]
+    by: Seller_product_viewsScalarFieldEnum[] | Seller_product_viewsScalarFieldEnum
+    having?: seller_product_viewsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Seller_product_viewsCountAggregateInputType | true
+    _avg?: Seller_product_viewsAvgAggregateInputType
+    _sum?: Seller_product_viewsSumAggregateInputType
+    _min?: Seller_product_viewsMinAggregateInputType
+    _max?: Seller_product_viewsMaxAggregateInputType
+  }
+
+  export type Seller_product_viewsGroupByOutputType = {
+    view_id: number
+    seller_product_id: number
+    product_id: number
+    viewed_at: Date | null
+    _count: Seller_product_viewsCountAggregateOutputType | null
+    _avg: Seller_product_viewsAvgAggregateOutputType | null
+    _sum: Seller_product_viewsSumAggregateOutputType | null
+    _min: Seller_product_viewsMinAggregateOutputType | null
+    _max: Seller_product_viewsMaxAggregateOutputType | null
+  }
+
+  type GetSeller_product_viewsGroupByPayload<T extends seller_product_viewsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Seller_product_viewsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Seller_product_viewsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Seller_product_viewsGroupByOutputType[P]>
+            : GetScalarType<T[P], Seller_product_viewsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type seller_product_viewsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    view_id?: boolean
+    seller_product_id?: boolean
+    product_id?: boolean
+    viewed_at?: boolean
+    products?: boolean | productsDefaultArgs<ExtArgs>
+    seller_products?: boolean | seller_productsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["seller_product_views"]>
+
+  export type seller_product_viewsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    view_id?: boolean
+    seller_product_id?: boolean
+    product_id?: boolean
+    viewed_at?: boolean
+    products?: boolean | productsDefaultArgs<ExtArgs>
+    seller_products?: boolean | seller_productsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["seller_product_views"]>
+
+  export type seller_product_viewsSelectScalar = {
+    view_id?: boolean
+    seller_product_id?: boolean
+    product_id?: boolean
+    viewed_at?: boolean
+  }
+
+  export type seller_product_viewsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    products?: boolean | productsDefaultArgs<ExtArgs>
+    seller_products?: boolean | seller_productsDefaultArgs<ExtArgs>
+  }
+  export type seller_product_viewsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    products?: boolean | productsDefaultArgs<ExtArgs>
+    seller_products?: boolean | seller_productsDefaultArgs<ExtArgs>
+  }
+
+  export type $seller_product_viewsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "seller_product_views"
+    objects: {
+      products: Prisma.$productsPayload<ExtArgs>
+      seller_products: Prisma.$seller_productsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      view_id: number
+      seller_product_id: number
+      product_id: number
+      viewed_at: Date | null
+    }, ExtArgs["result"]["seller_product_views"]>
+    composites: {}
+  }
+
+  type seller_product_viewsGetPayload<S extends boolean | null | undefined | seller_product_viewsDefaultArgs> = $Result.GetResult<Prisma.$seller_product_viewsPayload, S>
+
+  type seller_product_viewsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<seller_product_viewsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: Seller_product_viewsCountAggregateInputType | true
+    }
+
+  export interface seller_product_viewsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['seller_product_views'], meta: { name: 'seller_product_views' } }
+    /**
+     * Find zero or one Seller_product_views that matches the filter.
+     * @param {seller_product_viewsFindUniqueArgs} args - Arguments to find a Seller_product_views
+     * @example
+     * // Get one Seller_product_views
+     * const seller_product_views = await prisma.seller_product_views.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends seller_product_viewsFindUniqueArgs>(args: SelectSubset<T, seller_product_viewsFindUniqueArgs<ExtArgs>>): Prisma__seller_product_viewsClient<$Result.GetResult<Prisma.$seller_product_viewsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Seller_product_views that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {seller_product_viewsFindUniqueOrThrowArgs} args - Arguments to find a Seller_product_views
+     * @example
+     * // Get one Seller_product_views
+     * const seller_product_views = await prisma.seller_product_views.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends seller_product_viewsFindUniqueOrThrowArgs>(args: SelectSubset<T, seller_product_viewsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__seller_product_viewsClient<$Result.GetResult<Prisma.$seller_product_viewsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Seller_product_views that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {seller_product_viewsFindFirstArgs} args - Arguments to find a Seller_product_views
+     * @example
+     * // Get one Seller_product_views
+     * const seller_product_views = await prisma.seller_product_views.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends seller_product_viewsFindFirstArgs>(args?: SelectSubset<T, seller_product_viewsFindFirstArgs<ExtArgs>>): Prisma__seller_product_viewsClient<$Result.GetResult<Prisma.$seller_product_viewsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Seller_product_views that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {seller_product_viewsFindFirstOrThrowArgs} args - Arguments to find a Seller_product_views
+     * @example
+     * // Get one Seller_product_views
+     * const seller_product_views = await prisma.seller_product_views.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends seller_product_viewsFindFirstOrThrowArgs>(args?: SelectSubset<T, seller_product_viewsFindFirstOrThrowArgs<ExtArgs>>): Prisma__seller_product_viewsClient<$Result.GetResult<Prisma.$seller_product_viewsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Seller_product_views that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {seller_product_viewsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Seller_product_views
+     * const seller_product_views = await prisma.seller_product_views.findMany()
+     * 
+     * // Get first 10 Seller_product_views
+     * const seller_product_views = await prisma.seller_product_views.findMany({ take: 10 })
+     * 
+     * // Only select the `view_id`
+     * const seller_product_viewsWithView_idOnly = await prisma.seller_product_views.findMany({ select: { view_id: true } })
+     * 
+     */
+    findMany<T extends seller_product_viewsFindManyArgs>(args?: SelectSubset<T, seller_product_viewsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$seller_product_viewsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Seller_product_views.
+     * @param {seller_product_viewsCreateArgs} args - Arguments to create a Seller_product_views.
+     * @example
+     * // Create one Seller_product_views
+     * const Seller_product_views = await prisma.seller_product_views.create({
+     *   data: {
+     *     // ... data to create a Seller_product_views
+     *   }
+     * })
+     * 
+     */
+    create<T extends seller_product_viewsCreateArgs>(args: SelectSubset<T, seller_product_viewsCreateArgs<ExtArgs>>): Prisma__seller_product_viewsClient<$Result.GetResult<Prisma.$seller_product_viewsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Seller_product_views.
+     * @param {seller_product_viewsCreateManyArgs} args - Arguments to create many Seller_product_views.
+     * @example
+     * // Create many Seller_product_views
+     * const seller_product_views = await prisma.seller_product_views.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends seller_product_viewsCreateManyArgs>(args?: SelectSubset<T, seller_product_viewsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Seller_product_views and returns the data saved in the database.
+     * @param {seller_product_viewsCreateManyAndReturnArgs} args - Arguments to create many Seller_product_views.
+     * @example
+     * // Create many Seller_product_views
+     * const seller_product_views = await prisma.seller_product_views.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Seller_product_views and only return the `view_id`
+     * const seller_product_viewsWithView_idOnly = await prisma.seller_product_views.createManyAndReturn({ 
+     *   select: { view_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends seller_product_viewsCreateManyAndReturnArgs>(args?: SelectSubset<T, seller_product_viewsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$seller_product_viewsPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Seller_product_views.
+     * @param {seller_product_viewsDeleteArgs} args - Arguments to delete one Seller_product_views.
+     * @example
+     * // Delete one Seller_product_views
+     * const Seller_product_views = await prisma.seller_product_views.delete({
+     *   where: {
+     *     // ... filter to delete one Seller_product_views
+     *   }
+     * })
+     * 
+     */
+    delete<T extends seller_product_viewsDeleteArgs>(args: SelectSubset<T, seller_product_viewsDeleteArgs<ExtArgs>>): Prisma__seller_product_viewsClient<$Result.GetResult<Prisma.$seller_product_viewsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Seller_product_views.
+     * @param {seller_product_viewsUpdateArgs} args - Arguments to update one Seller_product_views.
+     * @example
+     * // Update one Seller_product_views
+     * const seller_product_views = await prisma.seller_product_views.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends seller_product_viewsUpdateArgs>(args: SelectSubset<T, seller_product_viewsUpdateArgs<ExtArgs>>): Prisma__seller_product_viewsClient<$Result.GetResult<Prisma.$seller_product_viewsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Seller_product_views.
+     * @param {seller_product_viewsDeleteManyArgs} args - Arguments to filter Seller_product_views to delete.
+     * @example
+     * // Delete a few Seller_product_views
+     * const { count } = await prisma.seller_product_views.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends seller_product_viewsDeleteManyArgs>(args?: SelectSubset<T, seller_product_viewsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Seller_product_views.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {seller_product_viewsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Seller_product_views
+     * const seller_product_views = await prisma.seller_product_views.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends seller_product_viewsUpdateManyArgs>(args: SelectSubset<T, seller_product_viewsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Seller_product_views.
+     * @param {seller_product_viewsUpsertArgs} args - Arguments to update or create a Seller_product_views.
+     * @example
+     * // Update or create a Seller_product_views
+     * const seller_product_views = await prisma.seller_product_views.upsert({
+     *   create: {
+     *     // ... data to create a Seller_product_views
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Seller_product_views we want to update
+     *   }
+     * })
+     */
+    upsert<T extends seller_product_viewsUpsertArgs>(args: SelectSubset<T, seller_product_viewsUpsertArgs<ExtArgs>>): Prisma__seller_product_viewsClient<$Result.GetResult<Prisma.$seller_product_viewsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Seller_product_views.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {seller_product_viewsCountArgs} args - Arguments to filter Seller_product_views to count.
+     * @example
+     * // Count the number of Seller_product_views
+     * const count = await prisma.seller_product_views.count({
+     *   where: {
+     *     // ... the filter for the Seller_product_views we want to count
+     *   }
+     * })
+    **/
+    count<T extends seller_product_viewsCountArgs>(
+      args?: Subset<T, seller_product_viewsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Seller_product_viewsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Seller_product_views.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Seller_product_viewsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Seller_product_viewsAggregateArgs>(args: Subset<T, Seller_product_viewsAggregateArgs>): Prisma.PrismaPromise<GetSeller_product_viewsAggregateType<T>>
+
+    /**
+     * Group by Seller_product_views.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {seller_product_viewsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends seller_product_viewsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: seller_product_viewsGroupByArgs['orderBy'] }
+        : { orderBy?: seller_product_viewsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, seller_product_viewsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSeller_product_viewsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the seller_product_views model
+   */
+  readonly fields: seller_product_viewsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for seller_product_views.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__seller_product_viewsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    products<T extends productsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, productsDefaultArgs<ExtArgs>>): Prisma__productsClient<$Result.GetResult<Prisma.$productsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    seller_products<T extends seller_productsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, seller_productsDefaultArgs<ExtArgs>>): Prisma__seller_productsClient<$Result.GetResult<Prisma.$seller_productsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the seller_product_views model
+   */ 
+  interface seller_product_viewsFieldRefs {
+    readonly view_id: FieldRef<"seller_product_views", 'Int'>
+    readonly seller_product_id: FieldRef<"seller_product_views", 'Int'>
+    readonly product_id: FieldRef<"seller_product_views", 'Int'>
+    readonly viewed_at: FieldRef<"seller_product_views", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * seller_product_views findUnique
+   */
+  export type seller_product_viewsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the seller_product_views
+     */
+    select?: seller_product_viewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: seller_product_viewsInclude<ExtArgs> | null
+    /**
+     * Filter, which seller_product_views to fetch.
+     */
+    where: seller_product_viewsWhereUniqueInput
+  }
+
+  /**
+   * seller_product_views findUniqueOrThrow
+   */
+  export type seller_product_viewsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the seller_product_views
+     */
+    select?: seller_product_viewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: seller_product_viewsInclude<ExtArgs> | null
+    /**
+     * Filter, which seller_product_views to fetch.
+     */
+    where: seller_product_viewsWhereUniqueInput
+  }
+
+  /**
+   * seller_product_views findFirst
+   */
+  export type seller_product_viewsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the seller_product_views
+     */
+    select?: seller_product_viewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: seller_product_viewsInclude<ExtArgs> | null
+    /**
+     * Filter, which seller_product_views to fetch.
+     */
+    where?: seller_product_viewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of seller_product_views to fetch.
+     */
+    orderBy?: seller_product_viewsOrderByWithRelationInput | seller_product_viewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for seller_product_views.
+     */
+    cursor?: seller_product_viewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` seller_product_views from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` seller_product_views.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of seller_product_views.
+     */
+    distinct?: Seller_product_viewsScalarFieldEnum | Seller_product_viewsScalarFieldEnum[]
+  }
+
+  /**
+   * seller_product_views findFirstOrThrow
+   */
+  export type seller_product_viewsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the seller_product_views
+     */
+    select?: seller_product_viewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: seller_product_viewsInclude<ExtArgs> | null
+    /**
+     * Filter, which seller_product_views to fetch.
+     */
+    where?: seller_product_viewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of seller_product_views to fetch.
+     */
+    orderBy?: seller_product_viewsOrderByWithRelationInput | seller_product_viewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for seller_product_views.
+     */
+    cursor?: seller_product_viewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` seller_product_views from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` seller_product_views.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of seller_product_views.
+     */
+    distinct?: Seller_product_viewsScalarFieldEnum | Seller_product_viewsScalarFieldEnum[]
+  }
+
+  /**
+   * seller_product_views findMany
+   */
+  export type seller_product_viewsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the seller_product_views
+     */
+    select?: seller_product_viewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: seller_product_viewsInclude<ExtArgs> | null
+    /**
+     * Filter, which seller_product_views to fetch.
+     */
+    where?: seller_product_viewsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of seller_product_views to fetch.
+     */
+    orderBy?: seller_product_viewsOrderByWithRelationInput | seller_product_viewsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing seller_product_views.
+     */
+    cursor?: seller_product_viewsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` seller_product_views from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` seller_product_views.
+     */
+    skip?: number
+    distinct?: Seller_product_viewsScalarFieldEnum | Seller_product_viewsScalarFieldEnum[]
+  }
+
+  /**
+   * seller_product_views create
+   */
+  export type seller_product_viewsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the seller_product_views
+     */
+    select?: seller_product_viewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: seller_product_viewsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a seller_product_views.
+     */
+    data: XOR<seller_product_viewsCreateInput, seller_product_viewsUncheckedCreateInput>
+  }
+
+  /**
+   * seller_product_views createMany
+   */
+  export type seller_product_viewsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many seller_product_views.
+     */
+    data: seller_product_viewsCreateManyInput | seller_product_viewsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * seller_product_views createManyAndReturn
+   */
+  export type seller_product_viewsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the seller_product_views
+     */
+    select?: seller_product_viewsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many seller_product_views.
+     */
+    data: seller_product_viewsCreateManyInput | seller_product_viewsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: seller_product_viewsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * seller_product_views update
+   */
+  export type seller_product_viewsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the seller_product_views
+     */
+    select?: seller_product_viewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: seller_product_viewsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a seller_product_views.
+     */
+    data: XOR<seller_product_viewsUpdateInput, seller_product_viewsUncheckedUpdateInput>
+    /**
+     * Choose, which seller_product_views to update.
+     */
+    where: seller_product_viewsWhereUniqueInput
+  }
+
+  /**
+   * seller_product_views updateMany
+   */
+  export type seller_product_viewsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update seller_product_views.
+     */
+    data: XOR<seller_product_viewsUpdateManyMutationInput, seller_product_viewsUncheckedUpdateManyInput>
+    /**
+     * Filter which seller_product_views to update
+     */
+    where?: seller_product_viewsWhereInput
+  }
+
+  /**
+   * seller_product_views upsert
+   */
+  export type seller_product_viewsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the seller_product_views
+     */
+    select?: seller_product_viewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: seller_product_viewsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the seller_product_views to update in case it exists.
+     */
+    where: seller_product_viewsWhereUniqueInput
+    /**
+     * In case the seller_product_views found by the `where` argument doesn't exist, create a new seller_product_views with this data.
+     */
+    create: XOR<seller_product_viewsCreateInput, seller_product_viewsUncheckedCreateInput>
+    /**
+     * In case the seller_product_views was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<seller_product_viewsUpdateInput, seller_product_viewsUncheckedUpdateInput>
+  }
+
+  /**
+   * seller_product_views delete
+   */
+  export type seller_product_viewsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the seller_product_views
+     */
+    select?: seller_product_viewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: seller_product_viewsInclude<ExtArgs> | null
+    /**
+     * Filter which seller_product_views to delete.
+     */
+    where: seller_product_viewsWhereUniqueInput
+  }
+
+  /**
+   * seller_product_views deleteMany
+   */
+  export type seller_product_viewsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which seller_product_views to delete
+     */
+    where?: seller_product_viewsWhereInput
+  }
+
+  /**
+   * seller_product_views without action
+   */
+  export type seller_product_viewsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the seller_product_views
+     */
+    select?: seller_product_viewsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: seller_product_viewsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -23133,6 +24254,16 @@ export namespace Prisma {
   };
 
   export type Wishlist_itemsScalarFieldEnum = (typeof Wishlist_itemsScalarFieldEnum)[keyof typeof Wishlist_itemsScalarFieldEnum]
+
+
+  export const Seller_product_viewsScalarFieldEnum: {
+    view_id: 'view_id',
+    seller_product_id: 'seller_product_id',
+    product_id: 'product_id',
+    viewed_at: 'viewed_at'
+  };
+
+  export type Seller_product_viewsScalarFieldEnum = (typeof Seller_product_viewsScalarFieldEnum)[keyof typeof Seller_product_viewsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -23635,6 +24766,7 @@ export namespace Prisma {
     product_demand?: Product_demandListRelationFilter
     product_images?: Product_imagesListRelationFilter
     product_specifications?: Product_specificationsListRelationFilter
+    seller_product_views?: Seller_product_viewsListRelationFilter
     seller_products?: Seller_productsListRelationFilter
     wishlist_items?: Wishlist_itemsListRelationFilter
   }
@@ -23652,6 +24784,7 @@ export namespace Prisma {
     product_demand?: product_demandOrderByRelationAggregateInput
     product_images?: product_imagesOrderByRelationAggregateInput
     product_specifications?: product_specificationsOrderByRelationAggregateInput
+    seller_product_views?: seller_product_viewsOrderByRelationAggregateInput
     seller_products?: seller_productsOrderByRelationAggregateInput
     wishlist_items?: wishlist_itemsOrderByRelationAggregateInput
   }
@@ -23672,6 +24805,7 @@ export namespace Prisma {
     product_demand?: Product_demandListRelationFilter
     product_images?: Product_imagesListRelationFilter
     product_specifications?: Product_specificationsListRelationFilter
+    seller_product_views?: Seller_product_viewsListRelationFilter
     seller_products?: Seller_productsListRelationFilter
     wishlist_items?: Wishlist_itemsListRelationFilter
   }, "product_id">
@@ -24042,6 +25176,7 @@ export namespace Prisma {
     warranty_months?: IntNullableFilter<"seller_products"> | number | null
     product_price_history?: Product_price_historyListRelationFilter
     seller_product_offers?: Seller_product_offersListRelationFilter
+    seller_product_views?: Seller_product_viewsListRelationFilter
     products?: XOR<ProductsNullableRelationFilter, productsWhereInput> | null
     seller_profiles?: XOR<Seller_profilesNullableRelationFilter, seller_profilesWhereInput> | null
   }
@@ -24056,6 +25191,7 @@ export namespace Prisma {
     warranty_months?: SortOrderInput | SortOrder
     product_price_history?: product_price_historyOrderByRelationAggregateInput
     seller_product_offers?: seller_product_offersOrderByRelationAggregateInput
+    seller_product_views?: seller_product_viewsOrderByRelationAggregateInput
     products?: productsOrderByWithRelationInput
     seller_profiles?: seller_profilesOrderByWithRelationInput
   }
@@ -24073,6 +25209,7 @@ export namespace Prisma {
     warranty_months?: IntNullableFilter<"seller_products"> | number | null
     product_price_history?: Product_price_historyListRelationFilter
     seller_product_offers?: Seller_product_offersListRelationFilter
+    seller_product_views?: Seller_product_viewsListRelationFilter
     products?: XOR<ProductsNullableRelationFilter, productsWhereInput> | null
     seller_profiles?: XOR<Seller_profilesNullableRelationFilter, seller_profilesWhereInput> | null
   }, "seller_product_id">
@@ -24447,6 +25584,61 @@ export namespace Prisma {
     created_at?: DateTimeNullableWithAggregatesFilter<"wishlist_items"> | Date | string | null
   }
 
+  export type seller_product_viewsWhereInput = {
+    AND?: seller_product_viewsWhereInput | seller_product_viewsWhereInput[]
+    OR?: seller_product_viewsWhereInput[]
+    NOT?: seller_product_viewsWhereInput | seller_product_viewsWhereInput[]
+    view_id?: IntFilter<"seller_product_views"> | number
+    seller_product_id?: IntFilter<"seller_product_views"> | number
+    product_id?: IntFilter<"seller_product_views"> | number
+    viewed_at?: DateTimeNullableFilter<"seller_product_views"> | Date | string | null
+    products?: XOR<ProductsRelationFilter, productsWhereInput>
+    seller_products?: XOR<Seller_productsRelationFilter, seller_productsWhereInput>
+  }
+
+  export type seller_product_viewsOrderByWithRelationInput = {
+    view_id?: SortOrder
+    seller_product_id?: SortOrder
+    product_id?: SortOrder
+    viewed_at?: SortOrderInput | SortOrder
+    products?: productsOrderByWithRelationInput
+    seller_products?: seller_productsOrderByWithRelationInput
+  }
+
+  export type seller_product_viewsWhereUniqueInput = Prisma.AtLeast<{
+    view_id?: number
+    AND?: seller_product_viewsWhereInput | seller_product_viewsWhereInput[]
+    OR?: seller_product_viewsWhereInput[]
+    NOT?: seller_product_viewsWhereInput | seller_product_viewsWhereInput[]
+    seller_product_id?: IntFilter<"seller_product_views"> | number
+    product_id?: IntFilter<"seller_product_views"> | number
+    viewed_at?: DateTimeNullableFilter<"seller_product_views"> | Date | string | null
+    products?: XOR<ProductsRelationFilter, productsWhereInput>
+    seller_products?: XOR<Seller_productsRelationFilter, seller_productsWhereInput>
+  }, "view_id">
+
+  export type seller_product_viewsOrderByWithAggregationInput = {
+    view_id?: SortOrder
+    seller_product_id?: SortOrder
+    product_id?: SortOrder
+    viewed_at?: SortOrderInput | SortOrder
+    _count?: seller_product_viewsCountOrderByAggregateInput
+    _avg?: seller_product_viewsAvgOrderByAggregateInput
+    _max?: seller_product_viewsMaxOrderByAggregateInput
+    _min?: seller_product_viewsMinOrderByAggregateInput
+    _sum?: seller_product_viewsSumOrderByAggregateInput
+  }
+
+  export type seller_product_viewsScalarWhereWithAggregatesInput = {
+    AND?: seller_product_viewsScalarWhereWithAggregatesInput | seller_product_viewsScalarWhereWithAggregatesInput[]
+    OR?: seller_product_viewsScalarWhereWithAggregatesInput[]
+    NOT?: seller_product_viewsScalarWhereWithAggregatesInput | seller_product_viewsScalarWhereWithAggregatesInput[]
+    view_id?: IntWithAggregatesFilter<"seller_product_views"> | number
+    seller_product_id?: IntWithAggregatesFilter<"seller_product_views"> | number
+    product_id?: IntWithAggregatesFilter<"seller_product_views"> | number
+    viewed_at?: DateTimeNullableWithAggregatesFilter<"seller_product_views"> | Date | string | null
+  }
+
   export type email_verificationsCreateInput = {
     token_hash: string
     expires_at: Date | string
@@ -24791,6 +25983,7 @@ export namespace Prisma {
     product_demand?: product_demandCreateNestedManyWithoutProductsInput
     product_images?: product_imagesCreateNestedManyWithoutProductsInput
     product_specifications?: product_specificationsCreateNestedManyWithoutProductsInput
+    seller_product_views?: seller_product_viewsCreateNestedManyWithoutProductsInput
     seller_products?: seller_productsCreateNestedManyWithoutProductsInput
     wishlist_items?: wishlist_itemsCreateNestedManyWithoutProductsInput
   }
@@ -24808,6 +26001,7 @@ export namespace Prisma {
     product_demand?: product_demandUncheckedCreateNestedManyWithoutProductsInput
     product_images?: product_imagesUncheckedCreateNestedManyWithoutProductsInput
     product_specifications?: product_specificationsUncheckedCreateNestedManyWithoutProductsInput
+    seller_product_views?: seller_product_viewsUncheckedCreateNestedManyWithoutProductsInput
     seller_products?: seller_productsUncheckedCreateNestedManyWithoutProductsInput
     wishlist_items?: wishlist_itemsUncheckedCreateNestedManyWithoutProductsInput
   }
@@ -24824,6 +26018,7 @@ export namespace Prisma {
     product_demand?: product_demandUpdateManyWithoutProductsNestedInput
     product_images?: product_imagesUpdateManyWithoutProductsNestedInput
     product_specifications?: product_specificationsUpdateManyWithoutProductsNestedInput
+    seller_product_views?: seller_product_viewsUpdateManyWithoutProductsNestedInput
     seller_products?: seller_productsUpdateManyWithoutProductsNestedInput
     wishlist_items?: wishlist_itemsUpdateManyWithoutProductsNestedInput
   }
@@ -24841,6 +26036,7 @@ export namespace Prisma {
     product_demand?: product_demandUncheckedUpdateManyWithoutProductsNestedInput
     product_images?: product_imagesUncheckedUpdateManyWithoutProductsNestedInput
     product_specifications?: product_specificationsUncheckedUpdateManyWithoutProductsNestedInput
+    seller_product_views?: seller_product_viewsUncheckedUpdateManyWithoutProductsNestedInput
     seller_products?: seller_productsUncheckedUpdateManyWithoutProductsNestedInput
     wishlist_items?: wishlist_itemsUncheckedUpdateManyWithoutProductsNestedInput
   }
@@ -25174,6 +26370,7 @@ export namespace Prisma {
     warranty_months?: number | null
     product_price_history?: product_price_historyCreateNestedManyWithoutSeller_productsInput
     seller_product_offers?: seller_product_offersCreateNestedManyWithoutSeller_productsInput
+    seller_product_views?: seller_product_viewsCreateNestedManyWithoutSeller_productsInput
     products?: productsCreateNestedOneWithoutSeller_productsInput
     seller_profiles?: seller_profilesCreateNestedOneWithoutSeller_productsInput
   }
@@ -25188,6 +26385,7 @@ export namespace Prisma {
     warranty_months?: number | null
     product_price_history?: product_price_historyUncheckedCreateNestedManyWithoutSeller_productsInput
     seller_product_offers?: seller_product_offersUncheckedCreateNestedManyWithoutSeller_productsInput
+    seller_product_views?: seller_product_viewsUncheckedCreateNestedManyWithoutSeller_productsInput
   }
 
   export type seller_productsUpdateInput = {
@@ -25197,6 +26395,7 @@ export namespace Prisma {
     warranty_months?: NullableIntFieldUpdateOperationsInput | number | null
     product_price_history?: product_price_historyUpdateManyWithoutSeller_productsNestedInput
     seller_product_offers?: seller_product_offersUpdateManyWithoutSeller_productsNestedInput
+    seller_product_views?: seller_product_viewsUpdateManyWithoutSeller_productsNestedInput
     products?: productsUpdateOneWithoutSeller_productsNestedInput
     seller_profiles?: seller_profilesUpdateOneWithoutSeller_productsNestedInput
   }
@@ -25211,6 +26410,7 @@ export namespace Prisma {
     warranty_months?: NullableIntFieldUpdateOperationsInput | number | null
     product_price_history?: product_price_historyUncheckedUpdateManyWithoutSeller_productsNestedInput
     seller_product_offers?: seller_product_offersUncheckedUpdateManyWithoutSeller_productsNestedInput
+    seller_product_views?: seller_product_viewsUncheckedUpdateManyWithoutSeller_productsNestedInput
   }
 
   export type seller_productsCreateManyInput = {
@@ -25575,6 +26775,50 @@ export namespace Prisma {
     user_id?: IntFieldUpdateOperationsInput | number
     product_id?: IntFieldUpdateOperationsInput | number
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type seller_product_viewsCreateInput = {
+    viewed_at?: Date | string | null
+    products: productsCreateNestedOneWithoutSeller_product_viewsInput
+    seller_products: seller_productsCreateNestedOneWithoutSeller_product_viewsInput
+  }
+
+  export type seller_product_viewsUncheckedCreateInput = {
+    view_id?: number
+    seller_product_id: number
+    product_id: number
+    viewed_at?: Date | string | null
+  }
+
+  export type seller_product_viewsUpdateInput = {
+    viewed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    products?: productsUpdateOneRequiredWithoutSeller_product_viewsNestedInput
+    seller_products?: seller_productsUpdateOneRequiredWithoutSeller_product_viewsNestedInput
+  }
+
+  export type seller_product_viewsUncheckedUpdateInput = {
+    view_id?: IntFieldUpdateOperationsInput | number
+    seller_product_id?: IntFieldUpdateOperationsInput | number
+    product_id?: IntFieldUpdateOperationsInput | number
+    viewed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type seller_product_viewsCreateManyInput = {
+    view_id?: number
+    seller_product_id: number
+    product_id: number
+    viewed_at?: Date | string | null
+  }
+
+  export type seller_product_viewsUpdateManyMutationInput = {
+    viewed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type seller_product_viewsUncheckedUpdateManyInput = {
+    view_id?: IntFieldUpdateOperationsInput | number
+    seller_product_id?: IntFieldUpdateOperationsInput | number
+    product_id?: IntFieldUpdateOperationsInput | number
+    viewed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -26075,6 +27319,12 @@ export namespace Prisma {
     none?: product_specificationsWhereInput
   }
 
+  export type Seller_product_viewsListRelationFilter = {
+    every?: seller_product_viewsWhereInput
+    some?: seller_product_viewsWhereInput
+    none?: seller_product_viewsWhereInput
+  }
+
   export type Seller_productsListRelationFilter = {
     every?: seller_productsWhereInput
     some?: seller_productsWhereInput
@@ -26100,6 +27350,10 @@ export namespace Prisma {
   }
 
   export type product_specificationsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type seller_product_viewsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -26714,6 +27968,44 @@ export namespace Prisma {
     product_id?: SortOrder
   }
 
+  export type Seller_productsRelationFilter = {
+    is?: seller_productsWhereInput
+    isNot?: seller_productsWhereInput
+  }
+
+  export type seller_product_viewsCountOrderByAggregateInput = {
+    view_id?: SortOrder
+    seller_product_id?: SortOrder
+    product_id?: SortOrder
+    viewed_at?: SortOrder
+  }
+
+  export type seller_product_viewsAvgOrderByAggregateInput = {
+    view_id?: SortOrder
+    seller_product_id?: SortOrder
+    product_id?: SortOrder
+  }
+
+  export type seller_product_viewsMaxOrderByAggregateInput = {
+    view_id?: SortOrder
+    seller_product_id?: SortOrder
+    product_id?: SortOrder
+    viewed_at?: SortOrder
+  }
+
+  export type seller_product_viewsMinOrderByAggregateInput = {
+    view_id?: SortOrder
+    seller_product_id?: SortOrder
+    product_id?: SortOrder
+    viewed_at?: SortOrder
+  }
+
+  export type seller_product_viewsSumOrderByAggregateInput = {
+    view_id?: SortOrder
+    seller_product_id?: SortOrder
+    product_id?: SortOrder
+  }
+
   export type usersCreateNestedOneWithoutEmail_verificationsInput = {
     create?: XOR<usersCreateWithoutEmail_verificationsInput, usersUncheckedCreateWithoutEmail_verificationsInput>
     connectOrCreate?: usersCreateOrConnectWithoutEmail_verificationsInput
@@ -26894,6 +28186,13 @@ export namespace Prisma {
     connect?: product_specificationsWhereUniqueInput | product_specificationsWhereUniqueInput[]
   }
 
+  export type seller_product_viewsCreateNestedManyWithoutProductsInput = {
+    create?: XOR<seller_product_viewsCreateWithoutProductsInput, seller_product_viewsUncheckedCreateWithoutProductsInput> | seller_product_viewsCreateWithoutProductsInput[] | seller_product_viewsUncheckedCreateWithoutProductsInput[]
+    connectOrCreate?: seller_product_viewsCreateOrConnectWithoutProductsInput | seller_product_viewsCreateOrConnectWithoutProductsInput[]
+    createMany?: seller_product_viewsCreateManyProductsInputEnvelope
+    connect?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+  }
+
   export type seller_productsCreateNestedManyWithoutProductsInput = {
     create?: XOR<seller_productsCreateWithoutProductsInput, seller_productsUncheckedCreateWithoutProductsInput> | seller_productsCreateWithoutProductsInput[] | seller_productsUncheckedCreateWithoutProductsInput[]
     connectOrCreate?: seller_productsCreateOrConnectWithoutProductsInput | seller_productsCreateOrConnectWithoutProductsInput[]
@@ -26934,6 +28233,13 @@ export namespace Prisma {
     connectOrCreate?: product_specificationsCreateOrConnectWithoutProductsInput | product_specificationsCreateOrConnectWithoutProductsInput[]
     createMany?: product_specificationsCreateManyProductsInputEnvelope
     connect?: product_specificationsWhereUniqueInput | product_specificationsWhereUniqueInput[]
+  }
+
+  export type seller_product_viewsUncheckedCreateNestedManyWithoutProductsInput = {
+    create?: XOR<seller_product_viewsCreateWithoutProductsInput, seller_product_viewsUncheckedCreateWithoutProductsInput> | seller_product_viewsCreateWithoutProductsInput[] | seller_product_viewsUncheckedCreateWithoutProductsInput[]
+    connectOrCreate?: seller_product_viewsCreateOrConnectWithoutProductsInput | seller_product_viewsCreateOrConnectWithoutProductsInput[]
+    createMany?: seller_product_viewsCreateManyProductsInputEnvelope
+    connect?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
   }
 
   export type seller_productsUncheckedCreateNestedManyWithoutProductsInput = {
@@ -27004,6 +28310,20 @@ export namespace Prisma {
     update?: product_specificationsUpdateWithWhereUniqueWithoutProductsInput | product_specificationsUpdateWithWhereUniqueWithoutProductsInput[]
     updateMany?: product_specificationsUpdateManyWithWhereWithoutProductsInput | product_specificationsUpdateManyWithWhereWithoutProductsInput[]
     deleteMany?: product_specificationsScalarWhereInput | product_specificationsScalarWhereInput[]
+  }
+
+  export type seller_product_viewsUpdateManyWithoutProductsNestedInput = {
+    create?: XOR<seller_product_viewsCreateWithoutProductsInput, seller_product_viewsUncheckedCreateWithoutProductsInput> | seller_product_viewsCreateWithoutProductsInput[] | seller_product_viewsUncheckedCreateWithoutProductsInput[]
+    connectOrCreate?: seller_product_viewsCreateOrConnectWithoutProductsInput | seller_product_viewsCreateOrConnectWithoutProductsInput[]
+    upsert?: seller_product_viewsUpsertWithWhereUniqueWithoutProductsInput | seller_product_viewsUpsertWithWhereUniqueWithoutProductsInput[]
+    createMany?: seller_product_viewsCreateManyProductsInputEnvelope
+    set?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    disconnect?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    delete?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    connect?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    update?: seller_product_viewsUpdateWithWhereUniqueWithoutProductsInput | seller_product_viewsUpdateWithWhereUniqueWithoutProductsInput[]
+    updateMany?: seller_product_viewsUpdateManyWithWhereWithoutProductsInput | seller_product_viewsUpdateManyWithWhereWithoutProductsInput[]
+    deleteMany?: seller_product_viewsScalarWhereInput | seller_product_viewsScalarWhereInput[]
   }
 
   export type seller_productsUpdateManyWithoutProductsNestedInput = {
@@ -27088,6 +28408,20 @@ export namespace Prisma {
     update?: product_specificationsUpdateWithWhereUniqueWithoutProductsInput | product_specificationsUpdateWithWhereUniqueWithoutProductsInput[]
     updateMany?: product_specificationsUpdateManyWithWhereWithoutProductsInput | product_specificationsUpdateManyWithWhereWithoutProductsInput[]
     deleteMany?: product_specificationsScalarWhereInput | product_specificationsScalarWhereInput[]
+  }
+
+  export type seller_product_viewsUncheckedUpdateManyWithoutProductsNestedInput = {
+    create?: XOR<seller_product_viewsCreateWithoutProductsInput, seller_product_viewsUncheckedCreateWithoutProductsInput> | seller_product_viewsCreateWithoutProductsInput[] | seller_product_viewsUncheckedCreateWithoutProductsInput[]
+    connectOrCreate?: seller_product_viewsCreateOrConnectWithoutProductsInput | seller_product_viewsCreateOrConnectWithoutProductsInput[]
+    upsert?: seller_product_viewsUpsertWithWhereUniqueWithoutProductsInput | seller_product_viewsUpsertWithWhereUniqueWithoutProductsInput[]
+    createMany?: seller_product_viewsCreateManyProductsInputEnvelope
+    set?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    disconnect?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    delete?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    connect?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    update?: seller_product_viewsUpdateWithWhereUniqueWithoutProductsInput | seller_product_viewsUpdateWithWhereUniqueWithoutProductsInput[]
+    updateMany?: seller_product_viewsUpdateManyWithWhereWithoutProductsInput | seller_product_viewsUpdateManyWithWhereWithoutProductsInput[]
+    deleteMany?: seller_product_viewsScalarWhereInput | seller_product_viewsScalarWhereInput[]
   }
 
   export type seller_productsUncheckedUpdateManyWithoutProductsNestedInput = {
@@ -27338,6 +28672,13 @@ export namespace Prisma {
     connect?: seller_product_offersWhereUniqueInput | seller_product_offersWhereUniqueInput[]
   }
 
+  export type seller_product_viewsCreateNestedManyWithoutSeller_productsInput = {
+    create?: XOR<seller_product_viewsCreateWithoutSeller_productsInput, seller_product_viewsUncheckedCreateWithoutSeller_productsInput> | seller_product_viewsCreateWithoutSeller_productsInput[] | seller_product_viewsUncheckedCreateWithoutSeller_productsInput[]
+    connectOrCreate?: seller_product_viewsCreateOrConnectWithoutSeller_productsInput | seller_product_viewsCreateOrConnectWithoutSeller_productsInput[]
+    createMany?: seller_product_viewsCreateManySeller_productsInputEnvelope
+    connect?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+  }
+
   export type productsCreateNestedOneWithoutSeller_productsInput = {
     create?: XOR<productsCreateWithoutSeller_productsInput, productsUncheckedCreateWithoutSeller_productsInput>
     connectOrCreate?: productsCreateOrConnectWithoutSeller_productsInput
@@ -27362,6 +28703,13 @@ export namespace Prisma {
     connectOrCreate?: seller_product_offersCreateOrConnectWithoutSeller_productsInput | seller_product_offersCreateOrConnectWithoutSeller_productsInput[]
     createMany?: seller_product_offersCreateManySeller_productsInputEnvelope
     connect?: seller_product_offersWhereUniqueInput | seller_product_offersWhereUniqueInput[]
+  }
+
+  export type seller_product_viewsUncheckedCreateNestedManyWithoutSeller_productsInput = {
+    create?: XOR<seller_product_viewsCreateWithoutSeller_productsInput, seller_product_viewsUncheckedCreateWithoutSeller_productsInput> | seller_product_viewsCreateWithoutSeller_productsInput[] | seller_product_viewsUncheckedCreateWithoutSeller_productsInput[]
+    connectOrCreate?: seller_product_viewsCreateOrConnectWithoutSeller_productsInput | seller_product_viewsCreateOrConnectWithoutSeller_productsInput[]
+    createMany?: seller_product_viewsCreateManySeller_productsInputEnvelope
+    connect?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
   }
 
   export type product_price_historyUpdateManyWithoutSeller_productsNestedInput = {
@@ -27390,6 +28738,20 @@ export namespace Prisma {
     update?: seller_product_offersUpdateWithWhereUniqueWithoutSeller_productsInput | seller_product_offersUpdateWithWhereUniqueWithoutSeller_productsInput[]
     updateMany?: seller_product_offersUpdateManyWithWhereWithoutSeller_productsInput | seller_product_offersUpdateManyWithWhereWithoutSeller_productsInput[]
     deleteMany?: seller_product_offersScalarWhereInput | seller_product_offersScalarWhereInput[]
+  }
+
+  export type seller_product_viewsUpdateManyWithoutSeller_productsNestedInput = {
+    create?: XOR<seller_product_viewsCreateWithoutSeller_productsInput, seller_product_viewsUncheckedCreateWithoutSeller_productsInput> | seller_product_viewsCreateWithoutSeller_productsInput[] | seller_product_viewsUncheckedCreateWithoutSeller_productsInput[]
+    connectOrCreate?: seller_product_viewsCreateOrConnectWithoutSeller_productsInput | seller_product_viewsCreateOrConnectWithoutSeller_productsInput[]
+    upsert?: seller_product_viewsUpsertWithWhereUniqueWithoutSeller_productsInput | seller_product_viewsUpsertWithWhereUniqueWithoutSeller_productsInput[]
+    createMany?: seller_product_viewsCreateManySeller_productsInputEnvelope
+    set?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    disconnect?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    delete?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    connect?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    update?: seller_product_viewsUpdateWithWhereUniqueWithoutSeller_productsInput | seller_product_viewsUpdateWithWhereUniqueWithoutSeller_productsInput[]
+    updateMany?: seller_product_viewsUpdateManyWithWhereWithoutSeller_productsInput | seller_product_viewsUpdateManyWithWhereWithoutSeller_productsInput[]
+    deleteMany?: seller_product_viewsScalarWhereInput | seller_product_viewsScalarWhereInput[]
   }
 
   export type productsUpdateOneWithoutSeller_productsNestedInput = {
@@ -27438,6 +28800,20 @@ export namespace Prisma {
     update?: seller_product_offersUpdateWithWhereUniqueWithoutSeller_productsInput | seller_product_offersUpdateWithWhereUniqueWithoutSeller_productsInput[]
     updateMany?: seller_product_offersUpdateManyWithWhereWithoutSeller_productsInput | seller_product_offersUpdateManyWithWhereWithoutSeller_productsInput[]
     deleteMany?: seller_product_offersScalarWhereInput | seller_product_offersScalarWhereInput[]
+  }
+
+  export type seller_product_viewsUncheckedUpdateManyWithoutSeller_productsNestedInput = {
+    create?: XOR<seller_product_viewsCreateWithoutSeller_productsInput, seller_product_viewsUncheckedCreateWithoutSeller_productsInput> | seller_product_viewsCreateWithoutSeller_productsInput[] | seller_product_viewsUncheckedCreateWithoutSeller_productsInput[]
+    connectOrCreate?: seller_product_viewsCreateOrConnectWithoutSeller_productsInput | seller_product_viewsCreateOrConnectWithoutSeller_productsInput[]
+    upsert?: seller_product_viewsUpsertWithWhereUniqueWithoutSeller_productsInput | seller_product_viewsUpsertWithWhereUniqueWithoutSeller_productsInput[]
+    createMany?: seller_product_viewsCreateManySeller_productsInputEnvelope
+    set?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    disconnect?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    delete?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    connect?: seller_product_viewsWhereUniqueInput | seller_product_viewsWhereUniqueInput[]
+    update?: seller_product_viewsUpdateWithWhereUniqueWithoutSeller_productsInput | seller_product_viewsUpdateWithWhereUniqueWithoutSeller_productsInput[]
+    updateMany?: seller_product_viewsUpdateManyWithWhereWithoutSeller_productsInput | seller_product_viewsUpdateManyWithWhereWithoutSeller_productsInput[]
+    deleteMany?: seller_product_viewsScalarWhereInput | seller_product_viewsScalarWhereInput[]
   }
 
   export type seller_imagesCreateNestedManyWithoutSeller_profilesInput = {
@@ -27882,6 +29258,34 @@ export namespace Prisma {
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutWishlist_itemsInput, usersUpdateWithoutWishlist_itemsInput>, usersUncheckedUpdateWithoutWishlist_itemsInput>
   }
 
+  export type productsCreateNestedOneWithoutSeller_product_viewsInput = {
+    create?: XOR<productsCreateWithoutSeller_product_viewsInput, productsUncheckedCreateWithoutSeller_product_viewsInput>
+    connectOrCreate?: productsCreateOrConnectWithoutSeller_product_viewsInput
+    connect?: productsWhereUniqueInput
+  }
+
+  export type seller_productsCreateNestedOneWithoutSeller_product_viewsInput = {
+    create?: XOR<seller_productsCreateWithoutSeller_product_viewsInput, seller_productsUncheckedCreateWithoutSeller_product_viewsInput>
+    connectOrCreate?: seller_productsCreateOrConnectWithoutSeller_product_viewsInput
+    connect?: seller_productsWhereUniqueInput
+  }
+
+  export type productsUpdateOneRequiredWithoutSeller_product_viewsNestedInput = {
+    create?: XOR<productsCreateWithoutSeller_product_viewsInput, productsUncheckedCreateWithoutSeller_product_viewsInput>
+    connectOrCreate?: productsCreateOrConnectWithoutSeller_product_viewsInput
+    upsert?: productsUpsertWithoutSeller_product_viewsInput
+    connect?: productsWhereUniqueInput
+    update?: XOR<XOR<productsUpdateToOneWithWhereWithoutSeller_product_viewsInput, productsUpdateWithoutSeller_product_viewsInput>, productsUncheckedUpdateWithoutSeller_product_viewsInput>
+  }
+
+  export type seller_productsUpdateOneRequiredWithoutSeller_product_viewsNestedInput = {
+    create?: XOR<seller_productsCreateWithoutSeller_product_viewsInput, seller_productsUncheckedCreateWithoutSeller_product_viewsInput>
+    connectOrCreate?: seller_productsCreateOrConnectWithoutSeller_product_viewsInput
+    upsert?: seller_productsUpsertWithoutSeller_product_viewsInput
+    connect?: seller_productsWhereUniqueInput
+    update?: XOR<XOR<seller_productsUpdateToOneWithWhereWithoutSeller_product_viewsInput, seller_productsUpdateWithoutSeller_product_viewsInput>, seller_productsUncheckedUpdateWithoutSeller_product_viewsInput>
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -28199,6 +29603,7 @@ export namespace Prisma {
     product_demand?: product_demandCreateNestedManyWithoutProductsInput
     product_images?: product_imagesCreateNestedManyWithoutProductsInput
     product_specifications?: product_specificationsCreateNestedManyWithoutProductsInput
+    seller_product_views?: seller_product_viewsCreateNestedManyWithoutProductsInput
     seller_products?: seller_productsCreateNestedManyWithoutProductsInput
     wishlist_items?: wishlist_itemsCreateNestedManyWithoutProductsInput
   }
@@ -28215,6 +29620,7 @@ export namespace Prisma {
     product_demand?: product_demandUncheckedCreateNestedManyWithoutProductsInput
     product_images?: product_imagesUncheckedCreateNestedManyWithoutProductsInput
     product_specifications?: product_specificationsUncheckedCreateNestedManyWithoutProductsInput
+    seller_product_views?: seller_product_viewsUncheckedCreateNestedManyWithoutProductsInput
     seller_products?: seller_productsUncheckedCreateNestedManyWithoutProductsInput
     wishlist_items?: wishlist_itemsUncheckedCreateNestedManyWithoutProductsInput
   }
@@ -28246,6 +29652,7 @@ export namespace Prisma {
     product_demand?: product_demandUpdateManyWithoutProductsNestedInput
     product_images?: product_imagesUpdateManyWithoutProductsNestedInput
     product_specifications?: product_specificationsUpdateManyWithoutProductsNestedInput
+    seller_product_views?: seller_product_viewsUpdateManyWithoutProductsNestedInput
     seller_products?: seller_productsUpdateManyWithoutProductsNestedInput
     wishlist_items?: wishlist_itemsUpdateManyWithoutProductsNestedInput
   }
@@ -28262,6 +29669,7 @@ export namespace Prisma {
     product_demand?: product_demandUncheckedUpdateManyWithoutProductsNestedInput
     product_images?: product_imagesUncheckedUpdateManyWithoutProductsNestedInput
     product_specifications?: product_specificationsUncheckedUpdateManyWithoutProductsNestedInput
+    seller_product_views?: seller_product_viewsUncheckedUpdateManyWithoutProductsNestedInput
     seller_products?: seller_productsUncheckedUpdateManyWithoutProductsNestedInput
     wishlist_items?: wishlist_itemsUncheckedUpdateManyWithoutProductsNestedInput
   }
@@ -28355,6 +29763,7 @@ export namespace Prisma {
     external_market_prices?: external_market_pricesCreateNestedManyWithoutProductsInput
     product_images?: product_imagesCreateNestedManyWithoutProductsInput
     product_specifications?: product_specificationsCreateNestedManyWithoutProductsInput
+    seller_product_views?: seller_product_viewsCreateNestedManyWithoutProductsInput
     seller_products?: seller_productsCreateNestedManyWithoutProductsInput
     wishlist_items?: wishlist_itemsCreateNestedManyWithoutProductsInput
   }
@@ -28371,6 +29780,7 @@ export namespace Prisma {
     external_market_prices?: external_market_pricesUncheckedCreateNestedManyWithoutProductsInput
     product_images?: product_imagesUncheckedCreateNestedManyWithoutProductsInput
     product_specifications?: product_specificationsUncheckedCreateNestedManyWithoutProductsInput
+    seller_product_views?: seller_product_viewsUncheckedCreateNestedManyWithoutProductsInput
     seller_products?: seller_productsUncheckedCreateNestedManyWithoutProductsInput
     wishlist_items?: wishlist_itemsUncheckedCreateNestedManyWithoutProductsInput
   }
@@ -28402,6 +29812,7 @@ export namespace Prisma {
     external_market_prices?: external_market_pricesUpdateManyWithoutProductsNestedInput
     product_images?: product_imagesUpdateManyWithoutProductsNestedInput
     product_specifications?: product_specificationsUpdateManyWithoutProductsNestedInput
+    seller_product_views?: seller_product_viewsUpdateManyWithoutProductsNestedInput
     seller_products?: seller_productsUpdateManyWithoutProductsNestedInput
     wishlist_items?: wishlist_itemsUpdateManyWithoutProductsNestedInput
   }
@@ -28418,6 +29829,7 @@ export namespace Prisma {
     external_market_prices?: external_market_pricesUncheckedUpdateManyWithoutProductsNestedInput
     product_images?: product_imagesUncheckedUpdateManyWithoutProductsNestedInput
     product_specifications?: product_specificationsUncheckedUpdateManyWithoutProductsNestedInput
+    seller_product_views?: seller_product_viewsUncheckedUpdateManyWithoutProductsNestedInput
     seller_products?: seller_productsUncheckedUpdateManyWithoutProductsNestedInput
     wishlist_items?: wishlist_itemsUncheckedUpdateManyWithoutProductsNestedInput
   }
@@ -28433,6 +29845,7 @@ export namespace Prisma {
     external_market_prices?: external_market_pricesCreateNestedManyWithoutProductsInput
     product_demand?: product_demandCreateNestedManyWithoutProductsInput
     product_specifications?: product_specificationsCreateNestedManyWithoutProductsInput
+    seller_product_views?: seller_product_viewsCreateNestedManyWithoutProductsInput
     seller_products?: seller_productsCreateNestedManyWithoutProductsInput
     wishlist_items?: wishlist_itemsCreateNestedManyWithoutProductsInput
   }
@@ -28449,6 +29862,7 @@ export namespace Prisma {
     external_market_prices?: external_market_pricesUncheckedCreateNestedManyWithoutProductsInput
     product_demand?: product_demandUncheckedCreateNestedManyWithoutProductsInput
     product_specifications?: product_specificationsUncheckedCreateNestedManyWithoutProductsInput
+    seller_product_views?: seller_product_viewsUncheckedCreateNestedManyWithoutProductsInput
     seller_products?: seller_productsUncheckedCreateNestedManyWithoutProductsInput
     wishlist_items?: wishlist_itemsUncheckedCreateNestedManyWithoutProductsInput
   }
@@ -28480,6 +29894,7 @@ export namespace Prisma {
     external_market_prices?: external_market_pricesUpdateManyWithoutProductsNestedInput
     product_demand?: product_demandUpdateManyWithoutProductsNestedInput
     product_specifications?: product_specificationsUpdateManyWithoutProductsNestedInput
+    seller_product_views?: seller_product_viewsUpdateManyWithoutProductsNestedInput
     seller_products?: seller_productsUpdateManyWithoutProductsNestedInput
     wishlist_items?: wishlist_itemsUpdateManyWithoutProductsNestedInput
   }
@@ -28496,6 +29911,7 @@ export namespace Prisma {
     external_market_prices?: external_market_pricesUncheckedUpdateManyWithoutProductsNestedInput
     product_demand?: product_demandUncheckedUpdateManyWithoutProductsNestedInput
     product_specifications?: product_specificationsUncheckedUpdateManyWithoutProductsNestedInput
+    seller_product_views?: seller_product_viewsUncheckedUpdateManyWithoutProductsNestedInput
     seller_products?: seller_productsUncheckedUpdateManyWithoutProductsNestedInput
     wishlist_items?: wishlist_itemsUncheckedUpdateManyWithoutProductsNestedInput
   }
@@ -28506,6 +29922,7 @@ export namespace Prisma {
     is_available?: boolean | null
     warranty_months?: number | null
     seller_product_offers?: seller_product_offersCreateNestedManyWithoutSeller_productsInput
+    seller_product_views?: seller_product_viewsCreateNestedManyWithoutSeller_productsInput
     products?: productsCreateNestedOneWithoutSeller_productsInput
     seller_profiles?: seller_profilesCreateNestedOneWithoutSeller_productsInput
   }
@@ -28519,6 +29936,7 @@ export namespace Prisma {
     is_available?: boolean | null
     warranty_months?: number | null
     seller_product_offers?: seller_product_offersUncheckedCreateNestedManyWithoutSeller_productsInput
+    seller_product_views?: seller_product_viewsUncheckedCreateNestedManyWithoutSeller_productsInput
   }
 
   export type seller_productsCreateOrConnectWithoutProduct_price_historyInput = {
@@ -28543,6 +29961,7 @@ export namespace Prisma {
     is_available?: NullableBoolFieldUpdateOperationsInput | boolean | null
     warranty_months?: NullableIntFieldUpdateOperationsInput | number | null
     seller_product_offers?: seller_product_offersUpdateManyWithoutSeller_productsNestedInput
+    seller_product_views?: seller_product_viewsUpdateManyWithoutSeller_productsNestedInput
     products?: productsUpdateOneWithoutSeller_productsNestedInput
     seller_profiles?: seller_profilesUpdateOneWithoutSeller_productsNestedInput
   }
@@ -28556,6 +29975,7 @@ export namespace Prisma {
     is_available?: NullableBoolFieldUpdateOperationsInput | boolean | null
     warranty_months?: NullableIntFieldUpdateOperationsInput | number | null
     seller_product_offers?: seller_product_offersUncheckedUpdateManyWithoutSeller_productsNestedInput
+    seller_product_views?: seller_product_viewsUncheckedUpdateManyWithoutSeller_productsNestedInput
   }
 
   export type productsCreateWithoutProduct_specificationsInput = {
@@ -28569,6 +29989,7 @@ export namespace Prisma {
     external_market_prices?: external_market_pricesCreateNestedManyWithoutProductsInput
     product_demand?: product_demandCreateNestedManyWithoutProductsInput
     product_images?: product_imagesCreateNestedManyWithoutProductsInput
+    seller_product_views?: seller_product_viewsCreateNestedManyWithoutProductsInput
     seller_products?: seller_productsCreateNestedManyWithoutProductsInput
     wishlist_items?: wishlist_itemsCreateNestedManyWithoutProductsInput
   }
@@ -28585,6 +30006,7 @@ export namespace Prisma {
     external_market_prices?: external_market_pricesUncheckedCreateNestedManyWithoutProductsInput
     product_demand?: product_demandUncheckedCreateNestedManyWithoutProductsInput
     product_images?: product_imagesUncheckedCreateNestedManyWithoutProductsInput
+    seller_product_views?: seller_product_viewsUncheckedCreateNestedManyWithoutProductsInput
     seller_products?: seller_productsUncheckedCreateNestedManyWithoutProductsInput
     wishlist_items?: wishlist_itemsUncheckedCreateNestedManyWithoutProductsInput
   }
@@ -28616,6 +30038,7 @@ export namespace Prisma {
     external_market_prices?: external_market_pricesUpdateManyWithoutProductsNestedInput
     product_demand?: product_demandUpdateManyWithoutProductsNestedInput
     product_images?: product_imagesUpdateManyWithoutProductsNestedInput
+    seller_product_views?: seller_product_viewsUpdateManyWithoutProductsNestedInput
     seller_products?: seller_productsUpdateManyWithoutProductsNestedInput
     wishlist_items?: wishlist_itemsUpdateManyWithoutProductsNestedInput
   }
@@ -28632,6 +30055,7 @@ export namespace Prisma {
     external_market_prices?: external_market_pricesUncheckedUpdateManyWithoutProductsNestedInput
     product_demand?: product_demandUncheckedUpdateManyWithoutProductsNestedInput
     product_images?: product_imagesUncheckedUpdateManyWithoutProductsNestedInput
+    seller_product_views?: seller_product_viewsUncheckedUpdateManyWithoutProductsNestedInput
     seller_products?: seller_productsUncheckedUpdateManyWithoutProductsNestedInput
     wishlist_items?: wishlist_itemsUncheckedUpdateManyWithoutProductsNestedInput
   }
@@ -28721,6 +30145,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type seller_product_viewsCreateWithoutProductsInput = {
+    viewed_at?: Date | string | null
+    seller_products: seller_productsCreateNestedOneWithoutSeller_product_viewsInput
+  }
+
+  export type seller_product_viewsUncheckedCreateWithoutProductsInput = {
+    view_id?: number
+    seller_product_id: number
+    viewed_at?: Date | string | null
+  }
+
+  export type seller_product_viewsCreateOrConnectWithoutProductsInput = {
+    where: seller_product_viewsWhereUniqueInput
+    create: XOR<seller_product_viewsCreateWithoutProductsInput, seller_product_viewsUncheckedCreateWithoutProductsInput>
+  }
+
+  export type seller_product_viewsCreateManyProductsInputEnvelope = {
+    data: seller_product_viewsCreateManyProductsInput | seller_product_viewsCreateManyProductsInput[]
+    skipDuplicates?: boolean
+  }
+
   export type seller_productsCreateWithoutProductsInput = {
     price?: Decimal | DecimalJsLike | number | string | null
     stock_quantity?: number | null
@@ -28728,6 +30173,7 @@ export namespace Prisma {
     warranty_months?: number | null
     product_price_history?: product_price_historyCreateNestedManyWithoutSeller_productsInput
     seller_product_offers?: seller_product_offersCreateNestedManyWithoutSeller_productsInput
+    seller_product_views?: seller_product_viewsCreateNestedManyWithoutSeller_productsInput
     seller_profiles?: seller_profilesCreateNestedOneWithoutSeller_productsInput
   }
 
@@ -28740,6 +30186,7 @@ export namespace Prisma {
     warranty_months?: number | null
     product_price_history?: product_price_historyUncheckedCreateNestedManyWithoutSeller_productsInput
     seller_product_offers?: seller_product_offersUncheckedCreateNestedManyWithoutSeller_productsInput
+    seller_product_views?: seller_product_viewsUncheckedCreateNestedManyWithoutSeller_productsInput
   }
 
   export type seller_productsCreateOrConnectWithoutProductsInput = {
@@ -28874,6 +30321,32 @@ export namespace Prisma {
     product_id?: IntNullableFilter<"product_specifications"> | number | null
     spec_key?: StringNullableFilter<"product_specifications"> | string | null
     spec_value?: StringNullableFilter<"product_specifications"> | string | null
+  }
+
+  export type seller_product_viewsUpsertWithWhereUniqueWithoutProductsInput = {
+    where: seller_product_viewsWhereUniqueInput
+    update: XOR<seller_product_viewsUpdateWithoutProductsInput, seller_product_viewsUncheckedUpdateWithoutProductsInput>
+    create: XOR<seller_product_viewsCreateWithoutProductsInput, seller_product_viewsUncheckedCreateWithoutProductsInput>
+  }
+
+  export type seller_product_viewsUpdateWithWhereUniqueWithoutProductsInput = {
+    where: seller_product_viewsWhereUniqueInput
+    data: XOR<seller_product_viewsUpdateWithoutProductsInput, seller_product_viewsUncheckedUpdateWithoutProductsInput>
+  }
+
+  export type seller_product_viewsUpdateManyWithWhereWithoutProductsInput = {
+    where: seller_product_viewsScalarWhereInput
+    data: XOR<seller_product_viewsUpdateManyMutationInput, seller_product_viewsUncheckedUpdateManyWithoutProductsInput>
+  }
+
+  export type seller_product_viewsScalarWhereInput = {
+    AND?: seller_product_viewsScalarWhereInput | seller_product_viewsScalarWhereInput[]
+    OR?: seller_product_viewsScalarWhereInput[]
+    NOT?: seller_product_viewsScalarWhereInput | seller_product_viewsScalarWhereInput[]
+    view_id?: IntFilter<"seller_product_views"> | number
+    seller_product_id?: IntFilter<"seller_product_views"> | number
+    product_id?: IntFilter<"seller_product_views"> | number
+    viewed_at?: DateTimeNullableFilter<"seller_product_views"> | Date | string | null
   }
 
   export type seller_productsUpsertWithWhereUniqueWithoutProductsInput = {
@@ -29324,6 +30797,7 @@ export namespace Prisma {
     is_available?: boolean | null
     warranty_months?: number | null
     product_price_history?: product_price_historyCreateNestedManyWithoutSeller_productsInput
+    seller_product_views?: seller_product_viewsCreateNestedManyWithoutSeller_productsInput
     products?: productsCreateNestedOneWithoutSeller_productsInput
     seller_profiles?: seller_profilesCreateNestedOneWithoutSeller_productsInput
   }
@@ -29337,6 +30811,7 @@ export namespace Prisma {
     is_available?: boolean | null
     warranty_months?: number | null
     product_price_history?: product_price_historyUncheckedCreateNestedManyWithoutSeller_productsInput
+    seller_product_views?: seller_product_viewsUncheckedCreateNestedManyWithoutSeller_productsInput
   }
 
   export type seller_productsCreateOrConnectWithoutSeller_product_offersInput = {
@@ -29361,6 +30836,7 @@ export namespace Prisma {
     is_available?: NullableBoolFieldUpdateOperationsInput | boolean | null
     warranty_months?: NullableIntFieldUpdateOperationsInput | number | null
     product_price_history?: product_price_historyUpdateManyWithoutSeller_productsNestedInput
+    seller_product_views?: seller_product_viewsUpdateManyWithoutSeller_productsNestedInput
     products?: productsUpdateOneWithoutSeller_productsNestedInput
     seller_profiles?: seller_profilesUpdateOneWithoutSeller_productsNestedInput
   }
@@ -29374,6 +30850,7 @@ export namespace Prisma {
     is_available?: NullableBoolFieldUpdateOperationsInput | boolean | null
     warranty_months?: NullableIntFieldUpdateOperationsInput | number | null
     product_price_history?: product_price_historyUncheckedUpdateManyWithoutSeller_productsNestedInput
+    seller_product_views?: seller_product_viewsUncheckedUpdateManyWithoutSeller_productsNestedInput
   }
 
   export type product_price_historyCreateWithoutSeller_productsInput = {
@@ -29424,6 +30901,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type seller_product_viewsCreateWithoutSeller_productsInput = {
+    viewed_at?: Date | string | null
+    products: productsCreateNestedOneWithoutSeller_product_viewsInput
+  }
+
+  export type seller_product_viewsUncheckedCreateWithoutSeller_productsInput = {
+    view_id?: number
+    product_id: number
+    viewed_at?: Date | string | null
+  }
+
+  export type seller_product_viewsCreateOrConnectWithoutSeller_productsInput = {
+    where: seller_product_viewsWhereUniqueInput
+    create: XOR<seller_product_viewsCreateWithoutSeller_productsInput, seller_product_viewsUncheckedCreateWithoutSeller_productsInput>
+  }
+
+  export type seller_product_viewsCreateManySeller_productsInputEnvelope = {
+    data: seller_product_viewsCreateManySeller_productsInput | seller_product_viewsCreateManySeller_productsInput[]
+    skipDuplicates?: boolean
+  }
+
   export type productsCreateWithoutSeller_productsInput = {
     brand?: string | null
     model_name?: string | null
@@ -29436,6 +30934,7 @@ export namespace Prisma {
     product_demand?: product_demandCreateNestedManyWithoutProductsInput
     product_images?: product_imagesCreateNestedManyWithoutProductsInput
     product_specifications?: product_specificationsCreateNestedManyWithoutProductsInput
+    seller_product_views?: seller_product_viewsCreateNestedManyWithoutProductsInput
     wishlist_items?: wishlist_itemsCreateNestedManyWithoutProductsInput
   }
 
@@ -29452,6 +30951,7 @@ export namespace Prisma {
     product_demand?: product_demandUncheckedCreateNestedManyWithoutProductsInput
     product_images?: product_imagesUncheckedCreateNestedManyWithoutProductsInput
     product_specifications?: product_specificationsUncheckedCreateNestedManyWithoutProductsInput
+    seller_product_views?: seller_product_viewsUncheckedCreateNestedManyWithoutProductsInput
     wishlist_items?: wishlist_itemsUncheckedCreateNestedManyWithoutProductsInput
   }
 
@@ -29549,6 +31049,22 @@ export namespace Prisma {
     is_auto_generated?: BoolNullableFilter<"seller_product_offers"> | boolean | null
   }
 
+  export type seller_product_viewsUpsertWithWhereUniqueWithoutSeller_productsInput = {
+    where: seller_product_viewsWhereUniqueInput
+    update: XOR<seller_product_viewsUpdateWithoutSeller_productsInput, seller_product_viewsUncheckedUpdateWithoutSeller_productsInput>
+    create: XOR<seller_product_viewsCreateWithoutSeller_productsInput, seller_product_viewsUncheckedCreateWithoutSeller_productsInput>
+  }
+
+  export type seller_product_viewsUpdateWithWhereUniqueWithoutSeller_productsInput = {
+    where: seller_product_viewsWhereUniqueInput
+    data: XOR<seller_product_viewsUpdateWithoutSeller_productsInput, seller_product_viewsUncheckedUpdateWithoutSeller_productsInput>
+  }
+
+  export type seller_product_viewsUpdateManyWithWhereWithoutSeller_productsInput = {
+    where: seller_product_viewsScalarWhereInput
+    data: XOR<seller_product_viewsUpdateManyMutationInput, seller_product_viewsUncheckedUpdateManyWithoutSeller_productsInput>
+  }
+
   export type productsUpsertWithoutSeller_productsInput = {
     update: XOR<productsUpdateWithoutSeller_productsInput, productsUncheckedUpdateWithoutSeller_productsInput>
     create: XOR<productsCreateWithoutSeller_productsInput, productsUncheckedCreateWithoutSeller_productsInput>
@@ -29572,6 +31088,7 @@ export namespace Prisma {
     product_demand?: product_demandUpdateManyWithoutProductsNestedInput
     product_images?: product_imagesUpdateManyWithoutProductsNestedInput
     product_specifications?: product_specificationsUpdateManyWithoutProductsNestedInput
+    seller_product_views?: seller_product_viewsUpdateManyWithoutProductsNestedInput
     wishlist_items?: wishlist_itemsUpdateManyWithoutProductsNestedInput
   }
 
@@ -29588,6 +31105,7 @@ export namespace Prisma {
     product_demand?: product_demandUncheckedUpdateManyWithoutProductsNestedInput
     product_images?: product_imagesUncheckedUpdateManyWithoutProductsNestedInput
     product_specifications?: product_specificationsUncheckedUpdateManyWithoutProductsNestedInput
+    seller_product_views?: seller_product_viewsUncheckedUpdateManyWithoutProductsNestedInput
     wishlist_items?: wishlist_itemsUncheckedUpdateManyWithoutProductsNestedInput
   }
 
@@ -29657,6 +31175,7 @@ export namespace Prisma {
     warranty_months?: number | null
     product_price_history?: product_price_historyCreateNestedManyWithoutSeller_productsInput
     seller_product_offers?: seller_product_offersCreateNestedManyWithoutSeller_productsInput
+    seller_product_views?: seller_product_viewsCreateNestedManyWithoutSeller_productsInput
     products?: productsCreateNestedOneWithoutSeller_productsInput
   }
 
@@ -29669,6 +31188,7 @@ export namespace Prisma {
     warranty_months?: number | null
     product_price_history?: product_price_historyUncheckedCreateNestedManyWithoutSeller_productsInput
     seller_product_offers?: seller_product_offersUncheckedCreateNestedManyWithoutSeller_productsInput
+    seller_product_views?: seller_product_viewsUncheckedCreateNestedManyWithoutSeller_productsInput
   }
 
   export type seller_productsCreateOrConnectWithoutSeller_profilesInput = {
@@ -30347,6 +31867,7 @@ export namespace Prisma {
     product_demand?: product_demandCreateNestedManyWithoutProductsInput
     product_images?: product_imagesCreateNestedManyWithoutProductsInput
     product_specifications?: product_specificationsCreateNestedManyWithoutProductsInput
+    seller_product_views?: seller_product_viewsCreateNestedManyWithoutProductsInput
     seller_products?: seller_productsCreateNestedManyWithoutProductsInput
   }
 
@@ -30363,6 +31884,7 @@ export namespace Prisma {
     product_demand?: product_demandUncheckedCreateNestedManyWithoutProductsInput
     product_images?: product_imagesUncheckedCreateNestedManyWithoutProductsInput
     product_specifications?: product_specificationsUncheckedCreateNestedManyWithoutProductsInput
+    seller_product_views?: seller_product_viewsUncheckedCreateNestedManyWithoutProductsInput
     seller_products?: seller_productsUncheckedCreateNestedManyWithoutProductsInput
   }
 
@@ -30430,6 +31952,7 @@ export namespace Prisma {
     product_demand?: product_demandUpdateManyWithoutProductsNestedInput
     product_images?: product_imagesUpdateManyWithoutProductsNestedInput
     product_specifications?: product_specificationsUpdateManyWithoutProductsNestedInput
+    seller_product_views?: seller_product_viewsUpdateManyWithoutProductsNestedInput
     seller_products?: seller_productsUpdateManyWithoutProductsNestedInput
   }
 
@@ -30446,6 +31969,7 @@ export namespace Prisma {
     product_demand?: product_demandUncheckedUpdateManyWithoutProductsNestedInput
     product_images?: product_imagesUncheckedUpdateManyWithoutProductsNestedInput
     product_specifications?: product_specificationsUncheckedUpdateManyWithoutProductsNestedInput
+    seller_product_views?: seller_product_viewsUncheckedUpdateManyWithoutProductsNestedInput
     seller_products?: seller_productsUncheckedUpdateManyWithoutProductsNestedInput
   }
 
@@ -30491,6 +32015,150 @@ export namespace Prisma {
     user_roles?: user_rolesUncheckedUpdateManyWithoutUsersNestedInput
   }
 
+  export type productsCreateWithoutSeller_product_viewsInput = {
+    brand?: string | null
+    model_name?: string | null
+    category?: string | null
+    description?: string | null
+    base_price?: Decimal | DecimalJsLike | number | string | null
+    average_rating?: Decimal | DecimalJsLike | number | string | null
+    review_count?: number | null
+    external_market_prices?: external_market_pricesCreateNestedManyWithoutProductsInput
+    product_demand?: product_demandCreateNestedManyWithoutProductsInput
+    product_images?: product_imagesCreateNestedManyWithoutProductsInput
+    product_specifications?: product_specificationsCreateNestedManyWithoutProductsInput
+    seller_products?: seller_productsCreateNestedManyWithoutProductsInput
+    wishlist_items?: wishlist_itemsCreateNestedManyWithoutProductsInput
+  }
+
+  export type productsUncheckedCreateWithoutSeller_product_viewsInput = {
+    product_id?: number
+    brand?: string | null
+    model_name?: string | null
+    category?: string | null
+    description?: string | null
+    base_price?: Decimal | DecimalJsLike | number | string | null
+    average_rating?: Decimal | DecimalJsLike | number | string | null
+    review_count?: number | null
+    external_market_prices?: external_market_pricesUncheckedCreateNestedManyWithoutProductsInput
+    product_demand?: product_demandUncheckedCreateNestedManyWithoutProductsInput
+    product_images?: product_imagesUncheckedCreateNestedManyWithoutProductsInput
+    product_specifications?: product_specificationsUncheckedCreateNestedManyWithoutProductsInput
+    seller_products?: seller_productsUncheckedCreateNestedManyWithoutProductsInput
+    wishlist_items?: wishlist_itemsUncheckedCreateNestedManyWithoutProductsInput
+  }
+
+  export type productsCreateOrConnectWithoutSeller_product_viewsInput = {
+    where: productsWhereUniqueInput
+    create: XOR<productsCreateWithoutSeller_product_viewsInput, productsUncheckedCreateWithoutSeller_product_viewsInput>
+  }
+
+  export type seller_productsCreateWithoutSeller_product_viewsInput = {
+    price?: Decimal | DecimalJsLike | number | string | null
+    stock_quantity?: number | null
+    is_available?: boolean | null
+    warranty_months?: number | null
+    product_price_history?: product_price_historyCreateNestedManyWithoutSeller_productsInput
+    seller_product_offers?: seller_product_offersCreateNestedManyWithoutSeller_productsInput
+    products?: productsCreateNestedOneWithoutSeller_productsInput
+    seller_profiles?: seller_profilesCreateNestedOneWithoutSeller_productsInput
+  }
+
+  export type seller_productsUncheckedCreateWithoutSeller_product_viewsInput = {
+    seller_product_id?: number
+    seller_id?: number | null
+    product_id?: number | null
+    price?: Decimal | DecimalJsLike | number | string | null
+    stock_quantity?: number | null
+    is_available?: boolean | null
+    warranty_months?: number | null
+    product_price_history?: product_price_historyUncheckedCreateNestedManyWithoutSeller_productsInput
+    seller_product_offers?: seller_product_offersUncheckedCreateNestedManyWithoutSeller_productsInput
+  }
+
+  export type seller_productsCreateOrConnectWithoutSeller_product_viewsInput = {
+    where: seller_productsWhereUniqueInput
+    create: XOR<seller_productsCreateWithoutSeller_product_viewsInput, seller_productsUncheckedCreateWithoutSeller_product_viewsInput>
+  }
+
+  export type productsUpsertWithoutSeller_product_viewsInput = {
+    update: XOR<productsUpdateWithoutSeller_product_viewsInput, productsUncheckedUpdateWithoutSeller_product_viewsInput>
+    create: XOR<productsCreateWithoutSeller_product_viewsInput, productsUncheckedCreateWithoutSeller_product_viewsInput>
+    where?: productsWhereInput
+  }
+
+  export type productsUpdateToOneWithWhereWithoutSeller_product_viewsInput = {
+    where?: productsWhereInput
+    data: XOR<productsUpdateWithoutSeller_product_viewsInput, productsUncheckedUpdateWithoutSeller_product_viewsInput>
+  }
+
+  export type productsUpdateWithoutSeller_product_viewsInput = {
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    model_name?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    base_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    average_rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    review_count?: NullableIntFieldUpdateOperationsInput | number | null
+    external_market_prices?: external_market_pricesUpdateManyWithoutProductsNestedInput
+    product_demand?: product_demandUpdateManyWithoutProductsNestedInput
+    product_images?: product_imagesUpdateManyWithoutProductsNestedInput
+    product_specifications?: product_specificationsUpdateManyWithoutProductsNestedInput
+    seller_products?: seller_productsUpdateManyWithoutProductsNestedInput
+    wishlist_items?: wishlist_itemsUpdateManyWithoutProductsNestedInput
+  }
+
+  export type productsUncheckedUpdateWithoutSeller_product_viewsInput = {
+    product_id?: IntFieldUpdateOperationsInput | number
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    model_name?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    base_price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    average_rating?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    review_count?: NullableIntFieldUpdateOperationsInput | number | null
+    external_market_prices?: external_market_pricesUncheckedUpdateManyWithoutProductsNestedInput
+    product_demand?: product_demandUncheckedUpdateManyWithoutProductsNestedInput
+    product_images?: product_imagesUncheckedUpdateManyWithoutProductsNestedInput
+    product_specifications?: product_specificationsUncheckedUpdateManyWithoutProductsNestedInput
+    seller_products?: seller_productsUncheckedUpdateManyWithoutProductsNestedInput
+    wishlist_items?: wishlist_itemsUncheckedUpdateManyWithoutProductsNestedInput
+  }
+
+  export type seller_productsUpsertWithoutSeller_product_viewsInput = {
+    update: XOR<seller_productsUpdateWithoutSeller_product_viewsInput, seller_productsUncheckedUpdateWithoutSeller_product_viewsInput>
+    create: XOR<seller_productsCreateWithoutSeller_product_viewsInput, seller_productsUncheckedCreateWithoutSeller_product_viewsInput>
+    where?: seller_productsWhereInput
+  }
+
+  export type seller_productsUpdateToOneWithWhereWithoutSeller_product_viewsInput = {
+    where?: seller_productsWhereInput
+    data: XOR<seller_productsUpdateWithoutSeller_product_viewsInput, seller_productsUncheckedUpdateWithoutSeller_product_viewsInput>
+  }
+
+  export type seller_productsUpdateWithoutSeller_product_viewsInput = {
+    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    stock_quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    is_available?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    warranty_months?: NullableIntFieldUpdateOperationsInput | number | null
+    product_price_history?: product_price_historyUpdateManyWithoutSeller_productsNestedInput
+    seller_product_offers?: seller_product_offersUpdateManyWithoutSeller_productsNestedInput
+    products?: productsUpdateOneWithoutSeller_productsNestedInput
+    seller_profiles?: seller_profilesUpdateOneWithoutSeller_productsNestedInput
+  }
+
+  export type seller_productsUncheckedUpdateWithoutSeller_product_viewsInput = {
+    seller_product_id?: IntFieldUpdateOperationsInput | number
+    seller_id?: NullableIntFieldUpdateOperationsInput | number | null
+    product_id?: NullableIntFieldUpdateOperationsInput | number | null
+    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    stock_quantity?: NullableIntFieldUpdateOperationsInput | number | null
+    is_available?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    warranty_months?: NullableIntFieldUpdateOperationsInput | number | null
+    product_price_history?: product_price_historyUncheckedUpdateManyWithoutSeller_productsNestedInput
+    seller_product_offers?: seller_product_offersUncheckedUpdateManyWithoutSeller_productsNestedInput
+  }
+
   export type external_market_pricesCreateManyProductsInput = {
     external_price_id?: number
     platform_name?: string | null
@@ -30513,6 +32181,12 @@ export namespace Prisma {
     spec_id?: number
     spec_key?: string | null
     spec_value?: string | null
+  }
+
+  export type seller_product_viewsCreateManyProductsInput = {
+    view_id?: number
+    seller_product_id: number
+    viewed_at?: Date | string | null
   }
 
   export type seller_productsCreateManyProductsInput = {
@@ -30598,6 +32272,23 @@ export namespace Prisma {
     spec_value?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type seller_product_viewsUpdateWithoutProductsInput = {
+    viewed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    seller_products?: seller_productsUpdateOneRequiredWithoutSeller_product_viewsNestedInput
+  }
+
+  export type seller_product_viewsUncheckedUpdateWithoutProductsInput = {
+    view_id?: IntFieldUpdateOperationsInput | number
+    seller_product_id?: IntFieldUpdateOperationsInput | number
+    viewed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type seller_product_viewsUncheckedUpdateManyWithoutProductsInput = {
+    view_id?: IntFieldUpdateOperationsInput | number
+    seller_product_id?: IntFieldUpdateOperationsInput | number
+    viewed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type seller_productsUpdateWithoutProductsInput = {
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     stock_quantity?: NullableIntFieldUpdateOperationsInput | number | null
@@ -30605,6 +32296,7 @@ export namespace Prisma {
     warranty_months?: NullableIntFieldUpdateOperationsInput | number | null
     product_price_history?: product_price_historyUpdateManyWithoutSeller_productsNestedInput
     seller_product_offers?: seller_product_offersUpdateManyWithoutSeller_productsNestedInput
+    seller_product_views?: seller_product_viewsUpdateManyWithoutSeller_productsNestedInput
     seller_profiles?: seller_profilesUpdateOneWithoutSeller_productsNestedInput
   }
 
@@ -30617,6 +32309,7 @@ export namespace Prisma {
     warranty_months?: NullableIntFieldUpdateOperationsInput | number | null
     product_price_history?: product_price_historyUncheckedUpdateManyWithoutSeller_productsNestedInput
     seller_product_offers?: seller_product_offersUncheckedUpdateManyWithoutSeller_productsNestedInput
+    seller_product_views?: seller_product_viewsUncheckedUpdateManyWithoutSeller_productsNestedInput
   }
 
   export type seller_productsUncheckedUpdateManyWithoutProductsInput = {
@@ -30720,6 +32413,12 @@ export namespace Prisma {
     is_auto_generated?: boolean | null
   }
 
+  export type seller_product_viewsCreateManySeller_productsInput = {
+    view_id?: number
+    product_id: number
+    viewed_at?: Date | string | null
+  }
+
   export type product_price_historyUpdateWithoutSeller_productsInput = {
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     recorded_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -30763,6 +32462,23 @@ export namespace Prisma {
     is_auto_generated?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
+  export type seller_product_viewsUpdateWithoutSeller_productsInput = {
+    viewed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    products?: productsUpdateOneRequiredWithoutSeller_product_viewsNestedInput
+  }
+
+  export type seller_product_viewsUncheckedUpdateWithoutSeller_productsInput = {
+    view_id?: IntFieldUpdateOperationsInput | number
+    product_id?: IntFieldUpdateOperationsInput | number
+    viewed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type seller_product_viewsUncheckedUpdateManyWithoutSeller_productsInput = {
+    view_id?: IntFieldUpdateOperationsInput | number
+    product_id?: IntFieldUpdateOperationsInput | number
+    viewed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type seller_imagesCreateManySeller_profilesInput = {
     image_id?: number
     image_url: string
@@ -30798,6 +32514,7 @@ export namespace Prisma {
     warranty_months?: NullableIntFieldUpdateOperationsInput | number | null
     product_price_history?: product_price_historyUpdateManyWithoutSeller_productsNestedInput
     seller_product_offers?: seller_product_offersUpdateManyWithoutSeller_productsNestedInput
+    seller_product_views?: seller_product_viewsUpdateManyWithoutSeller_productsNestedInput
     products?: productsUpdateOneWithoutSeller_productsNestedInput
   }
 
@@ -30810,6 +32527,7 @@ export namespace Prisma {
     warranty_months?: NullableIntFieldUpdateOperationsInput | number | null
     product_price_history?: product_price_historyUncheckedUpdateManyWithoutSeller_productsNestedInput
     seller_product_offers?: seller_product_offersUncheckedUpdateManyWithoutSeller_productsNestedInput
+    seller_product_views?: seller_product_viewsUncheckedUpdateManyWithoutSeller_productsNestedInput
   }
 
   export type seller_productsUncheckedUpdateManyWithoutSeller_profilesInput = {
@@ -31063,6 +32781,10 @@ export namespace Prisma {
      * @deprecated Use wishlist_itemsDefaultArgs instead
      */
     export type wishlist_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = wishlist_itemsDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use seller_product_viewsDefaultArgs instead
+     */
+    export type seller_product_viewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = seller_product_viewsDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

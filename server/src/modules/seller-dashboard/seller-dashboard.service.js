@@ -297,6 +297,44 @@ const deleteListing = async (sellerId, sellerProductId) => {
   return { deleted: true };
 };
 
+
+// -----------------------------------------------------------------------------
+// getListingInsights
+// Returns aggregated view data for a single listing.
+// Ownership verified inside the stored procedure.
+// -----------------------------------------------------------------------------
+const getListingInsights = async (sellerId, sellerProductId) => {
+    const id = Number(sellerProductId);
+
+    if (!id || isNaN(id) || id <= 0) {
+      throw new ApiError(400, "Invalid listing ID.");
+    }
+
+    const rows = await prisma.$queryRawUnsafe(
+      `SELECT * FROM get_listing_insights($1::int, $2::int)`,
+      id,
+      Number(sellerId)
+    );
+
+    if (rows.length === 0) {
+      throw new ApiError(404, "Listing not found or does not belong to your account.");
+    }
+
+    const data = rows[0];
+
+    const dailyBreakdown =
+      typeof data.daily_breakdown === "string"
+        ? JSON.parse(data.daily_breakdown)
+        : data.daily_breakdown ?? [];
+
+    return {
+      total_views:        Number(data.total_views),
+      views_last_7_days:  Number(data.views_last_7_days),
+      views_last_30_days: Number(data.views_last_30_days),
+      daily_breakdown:    dailyBreakdown,
+    };
+};
+
 export {
   searchCatalogue,
   createListing,
@@ -304,4 +342,5 @@ export {
   getListingDetail,
   updateListing,
   deleteListing,
+  getListingInsights,
 };

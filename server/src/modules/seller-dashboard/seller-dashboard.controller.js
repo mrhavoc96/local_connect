@@ -13,6 +13,7 @@ import {
   getListingDetail,
   updateListing,
   deleteListing,
+  getListingInsights,
 } from "./seller-dashboard.service.js";
 
 // -----------------------------------------------------------------------------
@@ -113,6 +114,20 @@ const deleteListingHandler = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, null, "Listing deleted successfully."));
 });
 
+// -----------------------------------------------------------------------------
+// GET /api/seller/dashboard/listings/:seller_product_id/insights
+// -----------------------------------------------------------------------------
+const getListingInsightsHandler = asyncHandler(async (req, res) => {
+  const { seller_id } = req.user;
+  const { seller_product_id } = req.params;
+
+  const insights = await getListingInsights(seller_id, seller_product_id);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, insights, "Listing insights fetched successfully."));
+});
+
 export {
   catalogueSearch,
   createListingHandler,
@@ -120,4 +135,5 @@ export {
   getListingDetailHandler,
   updateListingHandler,
   deleteListingHandler,
+  getListingInsightsHandler,
 };

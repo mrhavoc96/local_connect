@@ -56,7 +56,7 @@ later via the seller profile module.
 {
     "name": "Shop Owner",
     "email": "owner@gmail.com",
-    "phone": "9876543210",
+    "phone": "9876543210",  
     "password": "password123",
     "shop_name": "TechZone Electronics",
     "city": "Pune",

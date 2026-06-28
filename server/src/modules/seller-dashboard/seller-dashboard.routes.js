@@ -15,11 +15,12 @@ import {
   getListingDetailHandler,
   updateListingHandler,
   deleteListingHandler,
+  getListingInsightsHandler,
 } from "./seller-dashboard.controller.js";
 
 const router = Router();
 
-// Apply auth to all routes in this file
+// Apply auth to all routes in this filed
 router.use(verifyJWT, requireRole("seller"));
 
 // Catalogue search — seller finds products to list
@@ -36,6 +37,7 @@ router.post("/listings", createListingHandler);
 // GET    /api/seller/dashboard/listings/:seller_product_id
 // PATCH  /api/seller/dashboard/listings/:seller_product_id
 // DELETE /api/seller/dashboard/listings/:seller_product_id
+router.get("/listings/:seller_product_id/insights", getListingInsightsHandler);
 router.get("/listings/:seller_product_id",    getListingDetailHandler);
 router.patch("/listings/:seller_product_id",  updateListingHandler);
 router.delete("/listings/:seller_product_id", deleteListingHandler);

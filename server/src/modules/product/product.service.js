@@ -1,17 +1,6 @@
 // src/modules/product/product.service.js
 // =============================================================================
-// Product Service — business logic for the product detail page.
-//
-// Architecture decision:
-//   The product detail page requires 7 different data blocks. Rather than one
-//   massive stored procedure returning a single denormalised row, we use 7
-//   focused procedures called in parallel where possible.
-//
-//   Benefits:
-//     - Each procedure is independently testable and reusable
-//     - Parallel calls via Promise.all() reduce total response time
-//     - Failure in one block (e.g. no external prices) doesn't break the rest
-//     - Easy to add or remove blocks later without touching other procedures
+// Product Service — business logic for the product detail page and view tracking.
 // =============================================================================
 
 import prisma from "../../config/prisma.js";
@@ -28,9 +17,6 @@ const getProductDetail = async (sellerProductId) => {
     throw new ApiError(400, "Invalid seller product ID.");
   }
 
-  // --- Step 1: Fetch core data first ---
-  // We need product_id and seller_id from core before we can fetch
-  // images, specs, seller info etc. This one must run first.
   const coreRows = await prisma.$queryRawUnsafe(
     `SELECT * FROM get_product_core($1::int)`,
     id
@@ -40,13 +26,10 @@ const getProductDetail = async (sellerProductId) => {
     throw new ApiError(404, "Product listing not found.");
   }
 
-  const core = coreRows[0];
+  const core      = coreRows[0];
   const productId = Number(core.product_id);
   const sellerId  = Number(core.seller_id);
 
-  // --- Step 2: Fetch all remaining blocks in parallel ---
-  // These are all independent of each other — run simultaneously
-  // to minimise total response time.
   const [
     imageRows,
     specRows,
@@ -65,9 +48,7 @@ const getProductDetail = async (sellerProductId) => {
 
   const seller = sellerRows[0] ?? null;
 
-  // --- Step 3: Assemble and return clean response object ---
   return {
-    // Core listing info
     listing: {
       seller_product_id: Number(core.seller_product_id),
       seller_price:      core.seller_price      ? parseFloat(core.seller_price)  : null,
@@ -76,7 +57,6 @@ const getProductDetail = async (sellerProductId) => {
       warranty_months:   core.warranty_months    ? Number(core.warranty_months)   : 0,
     },
 
-    // Product information
     product: {
       product_id:     productId,
       brand:          core.brand,
@@ -85,17 +65,13 @@ const getProductDetail = async (sellerProductId) => {
       description:    core.description,
       base_price:     core.base_price ? parseFloat(core.base_price) : null,
       average_rating: core.product_avg_rating
-        ? parseFloat(core.product_avg_rating)
-        : 0,
+        ? parseFloat(core.product_avg_rating) : 0,
       review_count: core.product_review_count
-        ? Number(core.product_review_count)
-        : 0,
-      // All product images
+        ? Number(core.product_review_count) : 0,
       images: imageRows.map((img) => ({
         image_id:  Number(img.image_id),
         image_url: img.image_url,
       })),
-      // All product specifications as key-value pairs
       specifications: specRows.map((spec) => ({
         spec_id:    Number(spec.spec_id),
         spec_key:   spec.spec_key,
@@ -103,33 +79,25 @@ const getProductDetail = async (sellerProductId) => {
       })),
     },
 
-    // Seller / store information
-    seller: seller
-      ? {
-          seller_id:      sellerId,
-          shop_name:      seller.shop_name,
-          city:           seller.city,
-          pincode:        seller.pincode,
-          // Coordinates returned for frontend Google Maps embed
-          latitude:  seller.latitude  ? parseFloat(seller.latitude)  : null,
-          longitude: seller.longitude ? parseFloat(seller.longitude) : null,
-          is_verified:     seller.is_verified,
-          google_place_id: seller.google_place_id ?? null,
-          average_rating:  seller.seller_avg_rating
-            ? parseFloat(seller.seller_avg_rating)
-            : 0,
-          review_count: seller.seller_review_count
-            ? Number(seller.seller_review_count)
-            : 0,
-          // All seller images — parsed from JSON column
-          images:
-            typeof seller.seller_images === "string"
-              ? JSON.parse(seller.seller_images)
-              : seller.seller_images ?? [],
-        }
-      : null,
+    seller: seller ? {
+      seller_id:       sellerId,
+      shop_name:       seller.shop_name,
+      city:            seller.city,
+      pincode:         seller.pincode,
+      latitude:        seller.latitude  ? parseFloat(seller.latitude)  : null,
+      longitude:       seller.longitude ? parseFloat(seller.longitude) : null,
+      is_verified:     seller.is_verified,
+      google_place_id: seller.google_place_id ?? null,
+      average_rating:  seller.seller_avg_rating
+        ? parseFloat(seller.seller_avg_rating) : 0,
+      review_count: seller.seller_review_count
+        ? Number(seller.seller_review_count) : 0,
+      images:
+        typeof seller.seller_images === "string"
+          ? JSON.parse(seller.seller_images)
+          : seller.seller_images ?? [],
+    } : null,
 
-    // Active offers with calculated final price
     offers: offerRows.map((offer) => ({
       offer_id:       Number(offer.offer_id),
       discount_type:  offer.discount_type,
@@ -139,14 +107,12 @@ const getProductDetail = async (sellerProductId) => {
       end_date:       offer.end_date,
     })),
 
-    // Price history over last 365 days — ordered oldest to newest for charting
     price_history: priceHistoryRows.map((ph) => ({
       history_id:  Number(ph.history_id),
       price:       ph.price ? parseFloat(ph.price) : null,
       recorded_at: ph.recorded_at,
     })),
 
-    // External market prices for comparison
     external_prices: externalPriceRows.map((ep) => ({
       external_price_id: Number(ep.external_price_id),
       platform_name:     ep.platform_name,
@@ -156,4 +122,44 @@ const getProductDetail = async (sellerProductId) => {
   };
 };
 
-export { getProductDetail };
+// -----------------------------------------------------------------------------
+// recordProductView
+// Called when a user clicks "Contact Seller" or the map embed.
+// Validates that both seller_product_id and product_id are provided,
+// then calls the stored procedure which:
+//   - inserts into seller_product_views
+//   - increments product_demand.views_count for the seller's city
+// -----------------------------------------------------------------------------
+const recordProductView = async (sellerProductId, productId) => {
+  const spId = Number(sellerProductId);
+  const pId  = Number(productId);
+
+  if (!spId || isNaN(spId) || spId <= 0) {
+    throw new ApiError(400, "Invalid seller product ID.");
+  }
+
+  if (!pId || isNaN(pId) || pId <= 0) {
+    throw new ApiError(400, "Invalid product ID.");
+  }
+
+  // Confirm the listing exists before recording the view
+  const check = await prisma.$queryRawUnsafe(
+    `SELECT seller_product_id FROM seller_products WHERE seller_product_id = $1::int`,
+    spId
+  );
+
+  if (check.length === 0) {
+    throw new ApiError(404, "Product listing not found.");
+  }
+
+  // record_product_view returns VOID — use executeRawUnsafe
+  await prisma.$executeRawUnsafe(
+    `SELECT record_product_view($1::int, $2::int)`,
+    spId,
+    pId
+  );
+
+  return { recorded: true };
+};
+
+export { getProductDetail, recordProductView };

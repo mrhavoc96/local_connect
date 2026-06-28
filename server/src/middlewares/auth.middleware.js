@@ -39,9 +39,10 @@ const verifyJWT = asyncHandler(async (req, _, next) => {
   }
 
   // Confirm user still exists and is active in the DB
-  const rows = await prisma.$queryRaw`
-    SELECT * FROM get_user_by_id(${decoded.user_id}::int)
-  `;
+  const rows = await prisma.$queryRawUnsafe(
+    `SELECT * FROM get_user_by_id($1::int)`,
+    Number(decoded.user_id)
+  );
 
   if (rows.length === 0) {
     throw new ApiError(401, "User no longer exists.");
